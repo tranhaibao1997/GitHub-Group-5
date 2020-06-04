@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import StoreProvider from './ThemeContext'
 
 ReactDOM.render(
+  <StoreProvider>
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+  </React.StrictMode>
+  </StoreProvider>,
   document.getElementById('root')
 );
 
