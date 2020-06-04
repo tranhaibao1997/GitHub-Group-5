@@ -13,6 +13,7 @@ function NavBar(props) {
     let url = `https://cors-anywhere.herokuapp.com/https://api.github.com/repos/${ownerName}/${respName}/issues?page=1&per_page=20`;
     let data = await fetch(url);
     let result = await data.json();
+    console.log(result)
 
     setIssueList(result);
   };

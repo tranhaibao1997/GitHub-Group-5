@@ -49,3 +49,24 @@
 {
     color: rgba(255,255,255,.5) !important;
 }
+.repo-head h1
+{
+  font-size: 18px;
+}
+.repo-head span i
+{
+
+}
+.banner
+{
+  padding: 24px;
+    text-align: center;
+    border: 1px solid #e1e4e8!important;
+    margin-bottom: 24px;
+}
+.banner  > .banner-content > p
+{
+  margin: 0;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+}
