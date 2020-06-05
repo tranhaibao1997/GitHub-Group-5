@@ -4,7 +4,7 @@ import { StoreContext } from "./../ThemeContext";
 
 function NavBar(props) {
   let name = "";
-  let { respName, ownerName, setIssueList } = React.useContext(StoreContext);
+  let { respName, ownerName, setIssueList,respList } = React.useContext(StoreContext);
   function getInputChange(e) {
     name=e.target.value
     
@@ -17,14 +17,33 @@ function NavBar(props) {
 
     setIssueList(result);
   };
+  const getRespList = async (resp) => {
+    let url = `https://cors-anywhere.herokuapp.com/https://api.github.com/search/repositories?q=${resp}`
+    let data = await fetch(url);
+    let result = await data.json();
+    console.log(result)
+    respList[1](result.items)
+
+   
+  };
+  console.log(respList[0],"daskdiashdjasdjhas")
 
   function keyPress(e) {
     
     if (e.keyCode == 13) {
         e.preventDefault();
-        ownerName[1](name.split("/")[0])
-        respName[1](name.split("/")[1])
-        getIssueList(name.split("/")[0],name.split("/")[1])
+        if(name.split("").includes("/"))
+        {
+          ownerName[1](name.split("/")[0])
+          respName[1](name.split("/")[1])
+          getIssueList(name.split("/")[0],name.split("/")[1])     
+          console.log("search có /")             
+        }
+        else
+        {
+          getRespList(name)
+        }
+     
     }
   }
   return (

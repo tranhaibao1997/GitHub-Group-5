@@ -1,111 +1,136 @@
 .issueContainer {
-  height: auto;
-  border: 1px solid #d1d5da;
+    height: auto;
+    border: 1px solid #d1d5da;
 }
 
-.issueContainer > h3 {
-  font-size: 20px;
+.issueContainer>h3 {
+    font-size: 20px;
 }
 
 .issueIcon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #28A745;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #28A745;
 }
 
 .issueInfo {
-  max-width: 800px !important;
-  margin-top: 10px;
-  margin-bottom: 10px;
+    max-width: 800px !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .issueTitle {
-  font-size: 16px;
-  font-weight: 600;
-  margin-right: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 5px;
 }
 
 .statusBtn {
-  height: 20px;
-  padding: 0.1em 4px;
-  font-size: 12px;
-  font-weight: 600;
-  border-radius: 2px;
-  border-style: none;
+    height: 20px;
+    padding: 0.1em 4px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 2px;
+    border-style: none;
 }
 
 .issueDesc {
-  font-size: 14px;
-  color: #586069;
+    font-size: 14px;
+    color: #586069;
 }
 
 .issueCom {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.issueCom > i:hover {
-  cursor: pointer;
-  color: #0366d6;
+.issueCom>i:hover {
+    cursor: pointer;
+    color: #0366d6;
 }
 
-#logo
-{
-  width: 30px;
-  background-color: white;
-  border-radius: 50%;
-  padding: 3px;
+#logo {
+    width: 30px;
+    background-color: white;
+    border-radius: 50%;
+    padding: 3px;
 }
-.nav-bar
-{
-  background-color: #24292e;
-  padding:  0 !important;
-}
-#navbar-input
-{
-  background-color: hsla(0,0%,100%,.125);
-  border: none;
-  color: white;
-  min-height: 28px;
-  height: 28px;
-  transition: 1s;
-}
-#navbar-input:focus
-{
-  background-color: white;
-  border: none;
-  width: 300px;
-  transition: 1s;
-  color: black;
-}
-.navbar-dark .navbar-nav .nav-link
-{
-  color: white !important;
-}
-.navbar-dark .navbar-nav .nav-link:hover
-{
-    color: rgba(255,255,255,.5) !important;
-}
-.repo-head h1
-{
-  font-size: 18px;
-}
-.repo-head span i
-{
 
+.nav-bar {
+    background-color: #24292e;
+    padding: 0 !important;
 }
-.banner
-{
-  padding: 24px;
+
+#navbar-input {
+    background-color: hsla(0, 0%, 100%, .125);
+    border: none;
+    color: white;
+    min-height: 28px;
+    height: 28px;
+    transition: 1s;
+}
+
+#navbar-input:focus {
+    background-color: white;
+    border: none;
+    width: 300px;
+    transition: 1s;
+    color: black;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white !important;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: rgba(255, 255, 255, .5) !important;
+}
+
+.repo-head h1 {
+    font-size: 18px;
+}
+
+.repo-head span i {}
+
+.banner {
+    padding: 24px;
     text-align: center;
     border: 1px solid #e1e4e8!important;
     margin-bottom: 24px;
 }
-.banner  > .banner-content > p
-{
-  margin: 0;
-  margin-block-start: 0px;
-  margin-block-end: 0px;
+
+.banner>.banner-content>p {
+    margin: 0;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
+
+/* RESP part */
+
+.resp-footer {
+    list-style: none;
+    display: flex;
+    padding: 0;
+}
+
+.resp-footer li {
+    margin-right: 20px;
+}
+
+.resp-owner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.resp-owner img {
+    width: 50px;
+    height: 50px;
+}
+
+.row {
+    align-items: center;
 }
