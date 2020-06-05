@@ -12,45 +12,37 @@ console.log(name)
 
 
     return (
-        <Row className="issueContainer">
-            <Col md={1} className="issueIcon">
-                <i class="far fa-bookmark"></i>
-            </Col>
-            <Col md={8} className="issueInfo">
+        <Row className="respContainer">
+            <Col md={9}>
+                <Row className="respIcon">
+                    <div>
+                        <i class="fas fa-book"></i>
+                        <span className="respTitle">{resp.full_name}</span>
+                    </div>
+                </Row> 
+                {/* {issue.labels[0].name ? <button className="statusBtn" style={{backgroundColor:`${bgColor}`}}>{issue.labels[0].name}</button> : <span></span>} */}
+
+                <p className="resp-desc">{resp.description}</p>
+
+                {/* {issue.labels[0].name ? <button className="statusBtn" style={{backgroundColor:`${bgColor}`}}>{issue.labels[0].name}</button> : <span></span>} */}
                 <Row>
-                    <h3 className="issueTitle">{resp.full_name}</h3>
-
-                    {/* {issue.labels[0].name ? <button className="statusBtn" style={{backgroundColor:`${bgColor}`}}>{issue.labels[0].name}</button> : <span></span>} */}
-                </Row>
-                <Row>
-
-                    <span className="resp-desc">{resp.description}</span>
-
-                    {/* {issue.labels[0].name ? <button className="statusBtn" style={{backgroundColor:`${bgColor}`}}>{issue.labels[0].name}</button> : <span></span>} */}
-                </Row>
-                <Row>
-
                     <span className="resp-tags">{getRespTags(resp.full_name)}</span>
 
                     {/* {issue.labels[0].name ? <button className="statusBtn" style={{backgroundColor:`${bgColor}`}}>{issue.labels[0].name}</button> : <span></span>} */}
                 </Row>
                 <Row>
-
                     <ul className="resp-footer">
-                        <li><i className="far fa-star"></i>{Math.floor(resp.stargazers_count)}</li>
-                        <li className="resp-lang">{resp.language}</li>
+                        <li className="starIcon"><i className="far fa-star"></i>{Math.floor(resp.stargazers_count)}</li>
+                        <li className="resp-lang"><i class="fas fa-circle"></i><span className="respLang">{resp.language}</span></li>
                         <li>{resp.license ? <span>{resp.license.name}</span> : <span>No</span>}</li>
                         <li>Updated <Moment fromNow>{resp.pushed_at}</Moment></li>
                     </ul>
                     {/* {issue.labels[0].name ? <button className="statusBtn" style={{backgroundColor:`${bgColor}`}}>{issue.labels[0].name}</button> : <span></span>} */}
                 </Row>
-
             </Col>
-            <Col md={3} >
-                <div className="resp-owner">
-                    <img src={resp.owner.avatar_url}></img>
-                    <span>@{resp.owner.login}</span>
-                </div>
+            <Col md={3} className="resp-owner">
+                <div className="respImg"><img src={resp.owner.avatar_url}></img></div>
+                <div className="respName"><p>@{resp.owner.login}</p></div>
             </Col>
         </Row>
     );
