@@ -2,10 +2,17 @@ import React, { useEffect } from 'react';
 import { StoreContext } from "./../ThemeContext";
 import Resp from './Resp';
 
-function RespList(props, { match }) {
+function RespList({ match }) {
     useEffect(() => {
-        getRespList(match.params.repository)
-    })
+        if(match)
+        {
+            getRespList(match.params.repository)     
+        }
+       
+        
+        
+    
+    },[])
     async function getRespList(resp) {
         let url = `https://cors-anywhere.herokuapp.com/https://api.github.com/search/repositories?q=${resp}`
         let data = await fetch(url);

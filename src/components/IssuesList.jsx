@@ -3,11 +3,18 @@ import Issue from "./Issue";
 import { Container } from "react-bootstrap";
 import { StoreContext } from "./../ThemeContext";
 
-function IssuesList(props,{match}) {
+function IssuesList({match}) {
   let { respName, ownerName, issueList, setIssueList } = React.useContext(StoreContext);
   useEffect(() => {
+    if(match)
+    {
+      getIssueList(match.params.owner,match.params.repository)
+    }
+    
+    // console.log(match.params.owner)
+    // console.log(match.params.repository)
     console.log(match)
-  })
+  },[])
 
   console.log("List:", issueList)
 
@@ -25,7 +32,7 @@ function IssuesList(props,{match}) {
 
 
       {
-        issueList ? <div>
+        issueList && match ? <div>
           <div className="header">
             <div className="header-wrapper">
               <div className="repo-head">
@@ -33,9 +40,9 @@ function IssuesList(props,{match}) {
                   <span>
                     <i className="fas fa-book"></i>
                   </span>
-                  <a href="#">{ownerName[0]}</a>
+                  <a href="#">{match.params.owner}</a>
                   <span>/</span>
-                  <a href="#">{respName[0]}</a>
+                  <a href="#">{match.params.repository}</a>
                 </h1>
               </div>
               <ul></ul>
@@ -43,13 +50,13 @@ function IssuesList(props,{match}) {
           </div>
           <div className="banner">
             <div className="banner-content">
-              <h4><i className="fas fa-hand-peace"></i>Want to contribute to {ownerName[0]}/{respName[0]}?</h4>
+              <h4><i className="fas fa-hand-peace"></i>Want to contribute to {match.params.owner}/{match.params.repository}?</h4>
               <p>If you have a bug or an idea, read the <a href="#">contributing guidelines</a> before opening an issue.</p>
               <p>If you're ready to tackle some open issues, we've <a href="#">collected some good first issues for you .</a></p>
             </div>
           </div>
           {issueList.map(item => {
-            return <Container><Issue issue={item} /></Container>
+            return <Container><Issue ownerName={match.params.owner} respName={match.params.repository} issue={item} /></Container>
           })}
         </div> : <div></div>
       }

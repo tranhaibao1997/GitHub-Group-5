@@ -18,7 +18,7 @@ function Resp(props) {
                     <div>
                         <i class="fas fa-book"></i>
                         <span className="respTitle">
-                            <Link to={`/${resp.owner.login}/${resp.name}`}>{resp.owner.login}/{resp.name}</Link>
+                            <Link to={`/repos/${resp.owner.login}/${resp.name}/issues`}>{resp.owner.login}/{resp.name}</Link>
 
                         </span>
                     </div>

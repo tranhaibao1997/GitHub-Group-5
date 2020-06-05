@@ -21,10 +21,10 @@ function App() {
       <NavBar></NavBar>
       <Switch>
         <Container>
-          <Route exact path="/:owner/:repository" component={IssuesList}></Route>
-          <Route exact path="/:repository" component={RespList}></Route>
-          <IssuesList />
-          <RespList></RespList>
+          <Route exact path={"/repos/:owner/:repository/issues"} component={IssuesList}></Route>
+          <Route exact path={"/repos/:owner/:repository/issues/:num"} component={IssueDetails}></Route>
+          <Route exact path={"/repositories/:repository"} component={RespList}></Route>
+          
           {/* <IssueDetails  ownerName={"fool1280"} respName={"SPOJ"} issueNumber={"1"}></IssueDetails> */}
 
 
