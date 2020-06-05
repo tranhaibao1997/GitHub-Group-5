@@ -13,12 +13,8 @@ function App() {
       <NavBar></NavBar>
       <Container>
         <IssuesList/>
-      </Container>
-      //<IssueDetails ownerName={"fool1280"} respName={"SPOJ"} issueNumber={"1"}/>
-
-      <IssuesList />
-      <RespList></RespList>
-      </Container>
+        <IssueDetails ownerName={"fool1280"} respName={"SPOJ"} issueNumber={"1"}/>
+        <RespList></RespList>
     </div>
   );
 }
