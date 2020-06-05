@@ -1,13 +1,52 @@
 .issueContainer {
   height: auto;
-  border: 0.5px solid grey;
+  border: 1px solid #d1d5da;
 }
 
 .issueContainer > h3 {
   font-size: 20px;
 }
 
-.userInfo > img {
-  height: 80px;
-  width: 80px;
+.issueIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #28A745;
+}
+
+.issueInfo {
+  max-width: 800px !important;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.issueTitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin-right: 5px;
+}
+
+.statusBtn {
+  height: 20px;
+  padding: 0.1em 4px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 2px;
+  border-style: none;
+}
+
+.issueDesc {
+  font-size: 14px;
+  color: #586069;
+}
+
+.issueCom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.issueCom > i:hover {
+  cursor: pointer;
+  color: #0366d6;
 }

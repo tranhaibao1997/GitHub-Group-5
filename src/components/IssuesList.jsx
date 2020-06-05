@@ -14,8 +14,6 @@ function IssuesList(props) {
     }
     console.log("List:", issueList)
 
-   
-
     return (
         <div>
             <button onClick={() => getIssueList()}>Search</button>
