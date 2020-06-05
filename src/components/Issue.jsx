@@ -12,7 +12,7 @@ function Issue(props) {
             <Col md={1} className="issueIcon">
                 <i class="fas fa-exclamation-circle"></i>
             </Col>
-            <Col md={10} className="issueInfo">
+            <Col md={9} className="issueInfo">
                 <Row>
                     <h3 className="issueTitle">{issue.title}</h3>
                     {issue.labels[0].name ? <button className="statusBtn" style={{backgroundColor:`${bgColor}`}}>{issue.labels[0].name}</button> : <span></span>}
@@ -21,8 +21,8 @@ function Issue(props) {
                     <span className="issueDesc">#{issue.number} opened {issue.updated_at} by {issue.user.login}</span>
                 </Row>
             </Col>
-            <Col md={1} className="issueCom">
-                <i class="far fa-comment-alt"></i>
+            <Col md={2} className="issueCom">
+                {issue.comments ? <div className="issueComIcon"><i class="far fa-comment-alt"></i><span>{issue.comments}</span></div> : <span></span>}
             </Col>
         </Row>
     );
