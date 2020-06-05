@@ -8,6 +8,7 @@ export default ({ children }) => {
     let [ownerName,setOwnerName]=useState("")
     let [respName,setRespName]=useState("")
     let [issuesList,setIssuesList]=useState(null)
+    let [respList,setRespList]=useState(null)
     
   
 
@@ -17,7 +18,8 @@ export default ({ children }) => {
      respName:[respName,setRespName],
      ownerName:[ownerName,setOwnerName],
      issueList:issuesList,
-     setIssueList:setIssuesList
+     setIssueList:setIssuesList,
+     respList:[respList,setRespList]
 
         
     };

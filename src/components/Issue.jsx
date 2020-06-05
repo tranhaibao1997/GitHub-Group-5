@@ -1,5 +1,6 @@
 import React from 'react';
 import {Row, Col} from 'react-bootstrap'
+import Moment from 'react-moment'
 
 function Issue(props) {
     let issue = props.issue
@@ -18,7 +19,7 @@ function Issue(props) {
                     {issue.labels[0].name ? <button className="statusBtn" style={{backgroundColor:`${bgColor}`}}>{issue.labels[0].name}</button> : <span></span>}
                 </Row>
                 <Row>
-                    <span className="issueDesc">#{issue.number} opened {issue.updated_at} by {issue.user.login}</span>
+                    <span className="issueDesc">#{issue.number} opened <Moment fromNow>{issue.updated_at}</Moment> by {issue.user.login}</span>
                 </Row>
             </Col>
             <Col md={2} className="issueCom">
