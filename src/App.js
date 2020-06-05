@@ -15,12 +15,18 @@ function App() {
       
       <NavBar></NavBar>
       <Container>
-      {/* <IssueDetails  ownerName={"fool1280"} respName={"SPOJ"} issueNumber={"1"}></IssueDetails> */}
-      <IssuesList />
-      <RespList></RespList>
+
+        <IssuesList/>
+        <RespList></RespList>
+   
+
+
+    
+  
       </Container>
 
       
+
     </div>
   );
 }
