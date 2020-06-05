@@ -1,20 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Issue from "./Issue";
 import { Container } from "react-bootstrap";
 import { StoreContext } from "./../ThemeContext";
 
-function IssuesList(props) {
-    let { respName, ownerName, issueList } = React.useContext(StoreContext);
+function IssuesList(props,{match}) {
+  let { respName, ownerName, issueList, setIssueList } = React.useContext(StoreContext);
+  useEffect(() => {
+    console.log(match)
+  })
 
-    console.log("List:", issueList)
+  console.log("List:", issueList)
 
-    return (
-      <div>
+  async function getIssueList(ownerName, respName) {
+    let url = `https://cors-anywhere.herokuapp.com/https://api.github.com/repos/${ownerName}/${respName}/issues?page=1&per_page=20`;
+    let data = await fetch(url);
+    let result = await data.json();
+    console.log(result,"this is from url")
+    // navigate(`/${ownerName}/${respName}`);
 
-         
-          {
-              issueList ? <div>
-                   <div className="header">
+    setIssueList(result);
+  };
+  return (
+    <div>
+
+
+      {
+        issueList ? <div>
+          <div className="header">
             <div className="header-wrapper">
               <div className="repo-head">
                 <h1>
@@ -31,21 +43,21 @@ function IssuesList(props) {
           </div>
           <div className="banner">
             <div className="banner-content">
-      <h4><i className="fas fa-hand-peace"></i>Want to contribute to {ownerName[0]}/{respName[0]}?</h4>
-                <p>If you have a bug or an idea, read the <a href="#">contributing guidelines</a> before opening an issue.</p>
-                <p>If you're ready to tackle some open issues, we've <a href="#">collected some good first issues for you .</a></p>
+              <h4><i className="fas fa-hand-peace"></i>Want to contribute to {ownerName[0]}/{respName[0]}?</h4>
+              <p>If you have a bug or an idea, read the <a href="#">contributing guidelines</a> before opening an issue.</p>
+              <p>If you're ready to tackle some open issues, we've <a href="#">collected some good first issues for you .</a></p>
             </div>
           </div>
-              {issueList.map(item => {
-                  return <Container><Issue issue={item} /></Container>
-              })}
-          </div> : <div></div>
-          }
+          {issueList.map(item => {
+            return <Container><Issue issue={item} /></Container>
+          })}
+        </div> : <div></div>
+      }
 
-      </div>
+    </div>
   );
-    
- 
+
+
 }
 
 export default IssuesList;

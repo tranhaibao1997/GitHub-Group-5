@@ -15,7 +15,7 @@ export default ({ children }) => {
 
 
     const store = {
-     respName:[respName,setRespName],
+     respName:[respName,setRespName],   
      ownerName:[ownerName,setOwnerName],
      issueList:issuesList,
      setIssueList:setIssuesList,

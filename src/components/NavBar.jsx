@@ -1,6 +1,8 @@
 import React from "react";
 import { Navbar, Nav, Form, FormControl } from "react-bootstrap";
 import { StoreContext } from "./../ThemeContext";
+import Link from 'react-router-dom'
+import { navigate } from "react-router"
 
 function NavBar(props) {
   let name = "";
@@ -14,6 +16,7 @@ function NavBar(props) {
     let data = await fetch(url);
     let result = await data.json();
     console.log(result)
+    // navigate(`/${ownerName}/${respName}`);
 
     setIssueList(result);
   };
@@ -50,7 +53,7 @@ function NavBar(props) {
     <div className="nav-bar">
       <Navbar variant="dark">
         <Navbar.Brand href="#home">
-          <img id="logo" src="github-logo.svg" alt="github-logo"></img>
+          <img id="logo" src="/github-logo.svg" alt="github-logo"></img>
         </Navbar.Brand>
         <Form inline>
           <FormControl
