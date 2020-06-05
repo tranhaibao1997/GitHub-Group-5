@@ -30,7 +30,7 @@ function NavBar(props) {
 
   function keyPress(e) {
     
-    if (e.keyCode == 13) {
+    if (e.keyCode === 13) {
         e.preventDefault();
         if(name.split("").includes("/"))
         {
@@ -50,7 +50,7 @@ function NavBar(props) {
     <div className="nav-bar">
       <Navbar variant="dark">
         <Navbar.Brand href="#home">
-          <img id="logo" src="github-logo.svg"></img>
+          <img id="logo" src="github-logo.svg" alt="github-logo"></img>
         </Navbar.Brand>
         <Form inline>
           <FormControl

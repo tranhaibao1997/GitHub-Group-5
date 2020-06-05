@@ -102,10 +102,27 @@
   font-size: 18px;
 }
 
-.repo-head span i
-{
 
+
+.banner  > .banner-content > p
+{
+  margin: 0;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
 }
+
+
+.banner>.banner-content>p {
+    margin: 0;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
+
+/* RESP part */
+
+
+
 
 .banner
 {
@@ -121,7 +138,19 @@
   margin-block-start: 0px;
   margin-block-end: 0px;
 }
+
 .row
 {
   margin: 0 !important;
 }
+
+
+.resp-owner img {
+    width: 50px;
+    height: 50px;
+}
+
+.row {
+    align-items: center;
+}
+
