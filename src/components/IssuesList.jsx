@@ -29,13 +29,13 @@ function IssuesList(props) {
           </div>
           <div className="banner">
             <div className="banner-content">
-      <h4><i class="fas fa-hand-peace"></i>Want to contribute to {ownerName[0]}/{respName[0]}?</h4>
+      <h4><i className="fas fa-hand-peace"></i>Want to contribute to {ownerName[0]}/{respName[0]}?</h4>
                 <p>If you have a bug or an idea, read the <a href="#">contributing guidelines</a> before opening an issue.</p>
                 <p>If you're ready to tackle some open issues, we've <a href="#">collected some good first issues for you .</a></p>
             </div>
           </div>
           {issueList.map((item) => {
-            return <Issue issue={item} />;
+            return <Issue key={item.id} issue={item} />;
           })}
         </div>
       ) : (
