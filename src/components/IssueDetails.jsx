@@ -86,28 +86,29 @@ export default function IssueDetails({ match }) {
         <Row>
             <Col md={9}>
                 <Row className="mt-3">
-                    <Col md={1}>
-                        <img src={issue.user.avatar_url} style={{display: "block", margin: "0 auto", width: "50px"}}></img>
+                    <Col md={2} className="flex-column align-items-center">
+                        <img src={issue.user.avatar_url} style={{display: "block", margin: "0 auto", width: "80%"}}></img>
+                        <p style={{fontSize: "100%", textAlign: "center"}}>{issue.user.login}</p>
                     </Col>
-                    <Col md={11} style={{border: "1px solid grey", padding: "5px"}} >
+                    <Col md={10} style={{border: "1px solid grey", padding: "5px"}} >
                         <ReactMarkdown source={issue.body}></ReactMarkdown>
                     </Col>
                 </Row>
-                        {/*
-                        {comment.map((item) => {
-                            return(
-                            <div key={item.id}>
-                                <Row className="mt-2" style={{padding: "5px 15px"}}>
-                                    <Col md={1} >
-                                        <img src={item.user.avatar_url} style={{width: "60px"}}></img>
-                                    </Col>
-                                    <Col style={{border: "1px solid grey", padding: "5px"}} >
-                                        <ReactMarkdown>{item.body}</ReactMarkdown>
-                                    </Col>
-                                </Row>
-                            </div>
-                            )
-                        })}*/}
+                {comment.map((item) => {
+                  return(
+                    <div key={item.id}>
+                      <Row className="mt-3">
+                        <Col md={2}>
+                          <img src={item.user.avatar_url} style={{display: "block", margin: "0 auto", width: "80%"}}></img>
+                          <p style={{fontSize: "100%", textAlign: "center"}}>{item.user.login}</p>
+                        </Col>
+                        <Col md={10} style={{border: "1px solid grey", padding: "5px"}} >
+                          <ReactMarkdown source={item.body}></ReactMarkdown>
+                        </Col>
+                      </Row>
+                    </div>
+                  )
+                })}
               </Col>
               <Col md={3}>
                 <Row className="m-1 mt-3 border-bottom flex-column" style={{fontSize: "15px"}}>
