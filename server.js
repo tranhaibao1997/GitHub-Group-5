@@ -2,8 +2,8 @@
 // const request = require('request');
 // require('dotenv').config();
 
-// const clientId = process.env.REACT_APP_BAO_CLIENT_ID;
-// const secretKey = process.env.REACT_APP_BAO_SECRET_KEY;
+// const clientId = "b999438ff44259cd90c7";
+// const secretKey = "7ca2488a3217fd93e54473f3c26508ba7b5beb89"
 
 // console.log('started server on port 5000');
 

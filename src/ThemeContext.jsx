@@ -9,6 +9,7 @@ export default ({ children }) => {
     let [respName,setRespName]=useState("")
     let [issuesList,setIssuesList]=useState(null)
     let [respList,setRespList]=useState(null)
+    let [token,setToken]=useState(null)
     
   
 
@@ -19,7 +20,8 @@ export default ({ children }) => {
      ownerName:[ownerName,setOwnerName],
      issueList:issuesList,
      setIssueList:setIssuesList,
-     respList:[respList,setRespList]
+     respList:[respList,setRespList],
+     token:[token,setToken]
 
         
     };
