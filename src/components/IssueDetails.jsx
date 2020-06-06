@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Col } from "react-bootstrap";
 
-export default function IssueDetails(props) {
+export default function IssueDetails({match}) {
     let [issue, setIssue] = useState("");
     let [comment, setComment] = useState("");
     let [state, setState] = useState("");
 
-    const getIssue = async() => {
+    useEffect(()=>{
+        if(match)
+        {         
+            getIssue(match.params.owner,match.params.repository,match.params.num)
+            getComment(match.params.owner,match.params.repository,match.params.num)
+        }
+    },[])
+   
+
+    const getIssue = async(ownerName,respName,issueNumber) => {
         try {
-            let url = `https://cors-anywhere.herokuapp.com/https://api.github.com/repos/${props.ownerName}/${props.respName}/issues/${props.issueNumber}`;
+            let url = `https://cors-anywhere.herokuapp.com/https://api.github.com/repos/${ownerName}/${respName}/issues/${issueNumber}`;
             let data = await fetch(url);
             let result = await data.json();
             setIssue(result);
@@ -19,9 +28,9 @@ export default function IssueDetails(props) {
         }
     }
 
-    const getComment = async() => {
+    const getComment = async(ownerName,respName,issueNumber) => {
         try {
-            let url = `https://cors-anywhere.herokuapp.com/https://api.github.com/repos/${props.ownerName}/${props.respName}/issues/${props.issueNumber}/comments`;
+            let url = `https://cors-anywhere.herokuapp.com/https://api.github.com/repos/${ownerName}/${respName}/issues/${issueNumber}/comments`;
             let data = await fetch(url);
             let result = await data.json();
             setComment(result);
@@ -41,10 +50,6 @@ export default function IssueDetails(props) {
         return temp[1] + "-" + temp[2] + "-" + temp[0];
     }
 
-    useEffect(() => {
-        getIssue();
-        getComment();
-    }, [])
     if (!issue || !comment) {
         return (
             <div></div>

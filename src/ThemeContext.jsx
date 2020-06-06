@@ -9,17 +9,19 @@ export default ({ children }) => {
     let [respName,setRespName]=useState("")
     let [issuesList,setIssuesList]=useState(null)
     let [respList,setRespList]=useState(null)
+    let [token,setToken]=useState(null)
     
   
 
 
 
     const store = {
-     respName:[respName,setRespName],
+     respName:[respName,setRespName],   
      ownerName:[ownerName,setOwnerName],
      issueList:issuesList,
      setIssueList:setIssuesList,
-     respList:[respList,setRespList]
+     respList:[respList,setRespList],
+     token:[token,setToken]
 
         
     };

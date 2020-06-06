@@ -33,6 +33,7 @@
     font-weight: 600;
     border-radius: 2px;
     border-style: none;
+    margin-right: 10px;
 }
 
 .issueDesc {
@@ -101,12 +102,20 @@
     margin-block-start: 0px;
     margin-block-end: 0px;
 }
-
-.banner>.banner-content>p {
-    margin: 0;
-    margin-block-start: 0px;
-    margin-block-end: 0px;
+.issues-list-control
+{
+  margin-bottom: 30px;
 }
+.form-inline .form-control
+{
+  width: 100% !important;
+}
+.add-new-issue
+{
+  justify-content: flex-end;
+    display: flex;
+}
+
 
 
 /* RESP part */
@@ -124,9 +133,7 @@
     margin-block-end: 0px;
 }
 
-.row {
-    margin: 0 !important;
-}
+
 
 .respContainer {
   height: auto;
@@ -196,3 +203,5 @@
   color: #24292E;
   margin-top: 5px;
 }
+
+

@@ -1,13 +1,13 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap'
 import Moment from 'react-moment'
+import { Link } from 'react-router-dom';
 
 function Resp(props) {
     let resp = props.resp
-    function getRespTags(name)
-    {
-console.log(name)
-    
+    function getRespTags(name) {
+        console.log(name)
+
     }
 
 
@@ -17,9 +17,12 @@ console.log(name)
                 <Row className="respIcon">
                     <div>
                         <i class="fas fa-book"></i>
-                        <span className="respTitle">{resp.full_name}</span>
+                        <span className="respTitle">
+                            <Link to={`/repos/${resp.owner.login}/${resp.name}/issues`}>{resp.owner.login}/{resp.name}</Link>
+
+                        </span>
                     </div>
-                </Row> 
+                </Row>
                 {/* {issue.labels[0].name ? <button className="statusBtn" style={{backgroundColor:`${bgColor}`}}>{issue.labels[0].name}</button> : <span></span>} */}
 
                 <p className="resp-desc">{resp.description}</p>
