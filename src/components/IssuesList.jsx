@@ -54,6 +54,7 @@ function IssuesList({ match }) {
           "Content-Type": "application/x-www-form-urlencoded",
           Authorization: `token ${localStorage.token}`,
         },
+        body: JSON.stringify(issue)
       });
       const data = await response.json();
       console.log(data);

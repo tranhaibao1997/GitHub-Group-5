@@ -9,6 +9,7 @@ import {
   Dropdown,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import UserRepos from "./UserRepos";
 
 export default function Profile() {
   React.useEffect(() => {
@@ -44,11 +45,12 @@ export default function Profile() {
     setUser(data);
   }
   console.log(user);
+  console.log(repos)
   if (user === null || repos === null) {
     return <div></div>;
   } else {
     return (
-      <div>
+      <div className="profile-wrapper">
         <Row>
           <Col md={4}>
             <div>
@@ -74,7 +76,10 @@ export default function Profile() {
                 </Col>
                 <Col md={5}>
                   <div className="btn-section">
-                    <DropdownButton id="dropdown-basic-button" title="Type: All">
+                    <DropdownButton
+                      id="dropdown-basic-button"
+                      title="Type: All"
+                    >
                       <Dropdown.Item href="#/action-1">
                         Open issues and pull requests
                       </Dropdown.Item>
@@ -91,7 +96,10 @@ export default function Profile() {
                         Everything mentioning you
                       </Dropdown.Item>
                     </DropdownButton>
-                    <DropdownButton id="dropdown-basic-button" title="Language: All">
+                    <DropdownButton
+                      id="dropdown-basic-button"
+                      title="Language: All"
+                    >
                       <Dropdown.Item href="#/action-1">
                         Open issues and pull requests
                       </Dropdown.Item>
@@ -108,11 +116,22 @@ export default function Profile() {
                         Everything mentioning you
                       </Dropdown.Item>
                     </DropdownButton>
-                    <button className="add-btn"><i class="fas fa-book"></i> New</button>
+                    <button className="create-user-repo">
+                      <i class="fas fa-book"></i> New
+                    </button>
                   </div>
                 </Col>
               </Row>
             </div>
+            <ul className="list-repo">
+                {
+                    repos.map(repo =>{
+                        return(
+                            <UserRepos repo={repo}></UserRepos>
+                        )
+                    })
+                }
+            </ul>
           </Col>
         </Row>
       </div>
