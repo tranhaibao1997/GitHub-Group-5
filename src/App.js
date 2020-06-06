@@ -12,6 +12,7 @@ import Axios from 'axios';
 import Profile from './components/Profile';
 import CreateNewIssue from './components/CreateNewIssue';
 import { StoreContext } from './ThemeContext'
+import User from './components/User'
 
 
 
@@ -21,7 +22,7 @@ function App() {
   React.useEffect(() => {
     getUser()
   }, [])
-  let { user } = React.useContext(StoreContext);
+  let { authUser } = React.useContext(StoreContext);
   async function getUser() {
     // const issue = { title: "testing", body: "This is a test issue" };
     const url = `https://api.github.com/user`;
@@ -33,7 +34,7 @@ function App() {
       },
     });
     const data = await response.json();
-    user[1](data);
+    authUser[1](data);
   }
 
   return (
@@ -50,6 +51,7 @@ function App() {
               <Route exact path={"/repos/:owner/:repository/issues/new"} component={CreateNewIssue}></Route>
               <Route exact path={"/repos/:owner/:repository/issues/:num"} component={IssueDetails}></Route>
               <Route exact path={"/repositories/:repository"} component={RespList}></Route>
+              <Route exact path={"/user/:username"} component={User}></Route>
             </Container>
           </Switch>
         </>

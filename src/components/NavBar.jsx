@@ -14,7 +14,7 @@ import DropdownItem from "react-bootstrap/DropdownItem";
 
 function NavBar(props) {
   let name = "";
-  let { respName, ownerName, setIssueList, respList, user } = React.useContext(
+  let { respName, ownerName, setIssueList, respList, authUser } = React.useContext(
     StoreContext
   );
   function getInputChange(e) {
@@ -79,13 +79,13 @@ function NavBar(props) {
         <div className="nav-user">
           <DropdownButton
             id="dropdown-basic-button"
-            title={user[0] ? <img src={user[0].avatar_url}></img> : "Sign up"}
+            title={authUser[0] ? <img src={authUser[0].avatar_url}></img> : "Sign up"}
           >
-            {user[0] ? (
+            {authUser[0] ? (
               <>
                 <div className="sign-in-as">
                   <span>Signed in as</span>
-                  <span style={{ fontWeight: "600" }}>{user[0].login}</span>
+                  <span style={{ fontWeight: "600" }}>{authUser[0].login}</span>
                 </div>
                 <Dropdown.Item href="#/action-1">Your profile</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">

@@ -10,7 +10,8 @@ export default ({ children }) => {
     let [issuesList, setIssuesList] = useState(null)
     let [respList, setRespList] = useState(null)
     let [token, setToken] = useState(null)
-    let [user, setUser] = useState(null)
+    let [authUser, setAuthUser] = useState(null)
+    let [user,setUser]=useState(null)
 
 
 
@@ -23,7 +24,8 @@ export default ({ children }) => {
         setIssueList: setIssuesList,
         respList: [respList, setRespList],
         token: [token, setToken],
-        user: [user, setUser]
+        authUser: [authUser, setAuthUser],
+        user:[user,setUser]
 
 
     };

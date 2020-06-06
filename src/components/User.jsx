@@ -12,17 +12,29 @@ import {
 import { Link } from "react-router-dom";
 import UserRepos from "./UserRepos";
 
-export default function Profile() {
+export default function User({ match }) {
   React.useEffect(() => {
-    getUserReps();
+    if (match) {
+      getUserReps(match.params.username);
+      getUser(match.params.username);
+      getUserSub(match.params.username)
+    }
   }, []);
   let [repos, setRepos] = React.useState(null);
-  let {
-    authUser
-  } = React.useContext(StoreContext);
-  async function getUserReps() {
+  let [user, setUser] = React.useState(null);
+  let [sub, setSub] = React.useState(null);
+
+  async function getUserReps(username) {
     // const issue = { title: "testing", body: "This is a test issue" };
-    const url = `https://api.github.com/user/repos?sort=created&per_page=10`;
+    const url = `https://api.github.com/users/${username}/repos`;
+    const res = await fetch(url);
+    const data = await res.json();
+    setRepos(data);
+  }
+
+  async function getUser(username) {
+    // const issue = { title: "testing", body: "This is a test issue" };
+    const url = `https://api.github.com/users/${username}`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -31,28 +43,49 @@ export default function Profile() {
       },
     });
     const data = await response.json();
-    setRepos(data);
+    setUser(data);
   }
- 
-  console.log(repos)
-  if (authUser[0] === null || repos === null) {
+
+  async function getUserSub(username) {
+    // const issue = { title: "testing", body: "This is a test issue" };
+    const url = `https://api.github.com/users/${username}/orgs`;
+    const res = await fetch(url);
+    const data = await res.json();
+    console.log(data,"data from sub");
+    
+  }
+
+  console.log(user);
+  if (user === null || repos === null) {
     return <div></div>;
   } else {
     return (
       <div className="profile-wrapper">
-        <Row>
-          <Col md={4}>
-            <div>
+        <div className="user-info-wrapper">
+          <Row>
+            <Col md={3}>
               <div className="img-container">
-                <img id="profile-avatar" src={authUser[0].avatar_url}></img>
+                <img id="profile-avatar" src={user.avatar_url}></img>
               </div>
+            </Col>
 
-              <p id="profile-name">{authUser[0].login}</p>
-              <button id="edit-profile">Edit profile</button>
-            </div>
-          </Col>
-          <Col md={8}>
-            <div className="user-repo-header">
+            <Col md={9}>
+              <div className="user-info">
+                <h1 >{user.login}</h1>
+                <p>{user.bio}</p>
+                <ul className="resp-footer">
+                  <li>{user.location}</li>
+                  <li>{user.blog}</li>
+                  <li></li>
+                </ul>
+              </div>
+            </Col>
+          </Row>
+        </div>
+
+        <Row>
+          <Col md={7}>
+            <div className="user-repo-header repo-header-user">
               <Row>
                 <Col md={7}>
                   <Form inline>
@@ -112,16 +145,14 @@ export default function Profile() {
                 </Col>
               </Row>
             </div>
-            <ul className="list-repo">
-                {
-                    repos.map(repo =>{
-                        return(
-                            <UserRepos repo={repo}></UserRepos>
-                        )
-                    })
-                }
-            </ul>
+            
           </Col>
+          <ul className="list-repo">
+              {repos.map((repo) => {
+                return <UserRepos repo={repo}></UserRepos>;
+              })}
+            </ul>
+          
         </Row>
       </div>
     );
