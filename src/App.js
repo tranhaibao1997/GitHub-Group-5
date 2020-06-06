@@ -20,7 +20,7 @@ function App() {
 
   return (
     <>
-    {/* <Authorize></Authorize> */}
+    <Authorize></Authorize>
     <Router>
       
       <NavBar></NavBar>

@@ -16,10 +16,10 @@ function Issue(props) {
             <Col md={9} className="issueInfo">
                 <Row>
                     <h3 className="issueTitle"><Link to={`/repos/${props.ownerName}/${props.respName}/issues/${issue.number}`}>{issue.title}</Link></h3>
-                    {issue.labels[0] ? <button className="statusBtn" style={{backgroundColor:`${"#" + issue.labels[0].color}`}}>{issue.labels[0].name}</button> : <span></span>}
+                   
                     {issue.labels ? issue.labels.map(label =>{
                         return(
-                            <button className="statusBtn" style={{backgroundColor:`${"#" + issue.labels[0].color}`}}>{issue.labels[0].name}</button>
+                            <button className="statusBtn" style={{backgroundColor:`${"#" + label.color}`}}>{label.name}</button>
                         )
                     }) :""}
                 </Row>

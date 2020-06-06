@@ -33,7 +33,7 @@ function IssuesList({ match }) {
 
   async function getIssueList(ownerName, respName) {
     try {
-      let url = `https://cors-anywhere.herokuapp.com/https://api.github.com/repos/${ownerName}/${respName}/issues?page=1&per_page=10&state=all`;
+      let url = `https://cors-anywhere.herokuapp.com/https://api.github.com/repos/${ownerName}/${respName}/issues?page=1&per_page=10`;
       let data = await fetch(url);
       let result = await data.json();
       console.log(result, "this is from url");
