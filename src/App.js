@@ -16,7 +16,6 @@ import Profile from './components/Profile';
 
 
 function App() {
- 
 
   return (
     <>
@@ -31,9 +30,6 @@ function App() {
           <Route exact path={"/repositories/:repository"} component={RespList}></Route>
           <Route exact path={"/"} component={Profile}></Route>
         </Container>
-
-
-
       </Switch>
     </Router>
     </>

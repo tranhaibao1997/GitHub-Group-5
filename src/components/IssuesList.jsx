@@ -149,9 +149,9 @@ function IssuesList({ match }) {
                 <Col md={3}></Col>
                 <Col md={1}></Col>
               </Row>
-              {issueList.map((item) => {
+              {issueList.map((item, index) => {
                 return (
-                  <Container>
+                  <Container key={index}>
                     <Issue
                       ownerName={match.params.owner}
                       respName={match.params.repository}

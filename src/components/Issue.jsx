@@ -11,15 +11,14 @@ function Issue(props) {
     return (
         <Row className="issueContainer">
             <Col md={1} className="issueIcon">
-                <i class="fas fa-exclamation-circle"></i>
+                <i className="fas fa-exclamation-circle"></i>
             </Col>
             <Col md={9} className="issueInfo">
                 <Row>
                     <h3 className="issueTitle"><Link to={`/repos/${props.ownerName}/${props.respName}/issues/${issue.number}`}>{issue.title}</Link></h3>
-                   
-                    {issue.labels ? issue.labels.map(label =>{
+                    {issue.labels ? issue.labels.map((label, index) =>{
                         return(
-                            <button className="statusBtn" style={{backgroundColor:`${"#" + label.color}`}}>{label.name}</button>
+                            <button key={index} className="statusBtn" style={{backgroundColor:`${"#" + label.color}`}}>{label.name}</button>
                         )
                     }) :""}
                 </Row>

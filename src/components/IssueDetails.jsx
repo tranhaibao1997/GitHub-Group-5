@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Col } from "react-bootstrap";
+import ReactMarkdown from 'react-markdown';
 
 export default function IssueDetails({match}) {
     let [issue, setIssue] = useState("");
     let [comment, setComment] = useState("");
     let [state, setState] = useState("");
+    let [users, setUser] = useState({});
 
     useEffect(()=>{
         if(match)
@@ -13,7 +15,6 @@ export default function IssueDetails({match}) {
             getComment(match.params.owner,match.params.repository,match.params.num)
         }
     },[])
-   
 
     const getIssue = async(ownerName,respName,issueNumber) => {
         try {
@@ -22,8 +23,12 @@ export default function IssueDetails({match}) {
             let result = await data.json();
             setIssue(result);
             setState(result.state);
+            let temp = users;
+            temp[result.user.id] = result.user.avatar_url;
+            setUser(temp);
             console.log("Result", result);
-        } catch (error) {
+            console.log("User", temp)
+        } catch (error) {   
             alert(error);
         }
     }
@@ -34,6 +39,11 @@ export default function IssueDetails({match}) {
             let data = await fetch(url);
             let result = await data.json();
             setComment(result);
+            let temp = users;
+            result.map((item) => {
+                temp[item.user.id] = item.user.avatar_url;
+                return;
+            })
             console.log("Comment", result);
         } catch (error) {
             alert(error);
@@ -50,16 +60,16 @@ export default function IssueDetails({match}) {
         return temp[1] + "-" + temp[2] + "-" + temp[0];
     }
 
-    if (!issue || !comment) {
+    if (!issue || !comment || typeof issue == "undefined" || typeof comment == "undefined" || typeof state == "undefined") {
         return (
             <div></div>
         )
     }
     return(
         <div>
-            <Container style={{border: "1px solid black", padding: "10px"}}>
-                <Row className="border-bottom pb-2">
-                    <Col sm="8">
+            <Container style={{padding: "10px"}}>
+                <Row className="border-bottom pb-3">
+                    <Col md="8">
                         <h4>{issue.title} <span className="text-muted">#{issue.number}</span></h4>
                         <div>
                             <button className={issue.state === "closed" ? `btn btn-danger` : `btn btn-success`}> <i className="fas fa-times-circle"></i> {capFirst(state)}</button>
@@ -75,31 +85,63 @@ export default function IssueDetails({match}) {
                         </div>
                     </Col>
                 </Row>
-                <Row className="mt-2" style={{padding: "5px 15px"}} noGutters={true}>
-                    <Col sm={1} >
-                        <img src={issue.user.avatar_url} style={{width: "50px"}}></img>
+                <Row>
+                    <Col md={9}>
+                        <Row className="mt-3">
+                            <Col md={1}>
+                                <img src={issue.user.avatar_url} style={{display: "block", margin: "0 auto", width: "50px"}}></img>
+                            </Col>
+                            <Col md={11} style={{border: "1px solid grey", padding: "5px"}} >
+                                <ReactMarkdown source={issue.body}></ReactMarkdown>
+                            </Col>
+                        </Row>
+                        {/*
+                        {comment.map((item) => {
+                            return(
+                            <div key={item.id}>
+                                <Row className="mt-2" style={{padding: "5px 15px"}}>
+                                    <Col md={1} >
+                                        <img src={item.user.avatar_url} style={{width: "60px"}}></img>
+                                    </Col>
+                                    <Col style={{border: "1px solid grey", padding: "5px"}} >
+                                        <ReactMarkdown>{item.body}</ReactMarkdown>
+                                    </Col>
+                                </Row>
+                            </div>
+                            )
+                        })}*/}
                     </Col>
-                    <Col style={{border: "1px solid grey", padding: "5px"}}>
-                        
-                        <Row>
-                            <p>{issue.body}</p>
+                    <Col md={3}>
+                        <Row className="m-1 mt-3 border-bottom flex-column" style={{fontSize: "15px"}}>
+                            <p>Assignees</p>
+                            {issue.assignee ? ""
+                            : (
+                                <p  style={{color: "grey"}}>No one assigned</p>      
+                            ) }
+                        </Row>
+                        <Row className="m-1 mt-3 border-bottom flex-column" style={{fontSize: "15px"}}>
+                            <p>Projects</p>
+                            <p style={{color: "grey"}}>None yet</p> 
+                        </Row>
+                        <Row className="m-1 mt-3 border-bottom flex-column" style={{fontSize: "15px"}}>
+                            <p>Milestone</p>
+                            <p style={{color: "grey"}}>No milestone</p> 
+                        </Row>
+                        <Row className="m-1 mt-3 border-bottom flex-column" style={{fontSize: "15px"}}>
+                            <p>Linked pull requests</p>
+                            <p style={{color: "grey"}}>Successfully merging a pull request may close this issue.</p> 
+                            <p style={{color: "grey"}}>None yet.</p> 
+                        </Row>
+                        <Row className="m-1 mt-3 border-bottom flex-column" style={{fontSize: "15px"}}>
+                            <div>
+                                <p style={{fontWeight: "bold", float: "left"}}>Notifications</p>
+                                <p style={{float: "right"}}>Customize</p>
+                            </div>
+                            <button className="btn btn-info"><i className="far fa-bell"></i> Subscribe</button>
+                            <p style={{color: "grey"}}>You’re not receiving notifications from this thread.</p>
                         </Row>
                     </Col>
                 </Row>
-                {comment.map((item) => {
-                    return(
-                        <div key={item.id}>
-                            <Row className="mt-2" style={{padding: "5px 15px"}} noGutters={true}>
-                                <Col sm={1} >
-                                    <img src={item.user.avatar_url} style={{width: "50px"}}></img>
-                                </Col>
-                                <Col style={{border: "1px solid grey", padding: "5px"}} >
-                                     <p>{item.body}</p>
-                                </Col>
-                            </Row>
-                        </div>
-                    )
-                })}
             </Container>
         </div>
     )
