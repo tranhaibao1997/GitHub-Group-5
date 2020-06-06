@@ -16,26 +16,28 @@ import Profile from './components/Profile';
 
 
 function App() {
- 
+
 
   return (
     <>
-    <Authorize></Authorize>
-    <Router>
-      
-      <NavBar></NavBar>
-      <Switch>
-        <Container>
-          <Route exact path={"/repos/:owner/:repository/issues"} component={IssuesList}></Route>
-          <Route exact path={"/repos/:owner/:repository/issues/:num"} component={IssueDetails}></Route>
-          <Route exact path={"/repositories/:repository"} component={RespList}></Route>
-          <Route exact path={"/"} component={Profile}></Route>
-        </Container>
+      <Authorize></Authorize>
+      <Router>
+
+        <NavBar></NavBar>
+        <Switch>
+
+          <Container>
+            <Route exact path={"/"} component={Profile}></Route>
+            <Route exact path={"/repos/:owner/:repository/issues"} component={IssuesList}></Route>
+            <Route exact path={"/repos/:owner/:repository/issues/:num"} component={IssueDetails}></Route>
+            <Route exact path={"/repositories/:repository"} component={RespList}></Route>
+          </Container>
 
 
 
-      </Switch>
-    </Router>
+
+        </Switch>
+      </Router>
     </>
   );
 }
