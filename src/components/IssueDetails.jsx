@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
 export default function IssueDetails({ match }) {
-  let [issue, setIssue] = useState("");
-  let [comment, setComment] = useState("");
-  let [state, setState] = useState("");
+  let [issue, setIssue] = useState(null);
+  let [comment, setComment] = useState(null);
+  let [state, setState] = useState(null);
 
   useEffect(() => {
     if (match) {
@@ -15,7 +15,7 @@ export default function IssueDetails({ match }) {
 
   const getIssue = async (ownerName, respName, issueNumber) => {
     try {
-      let url = `https://cors-anywhere.herokuapp.com/https://api.github.com/repos/${ownerName}/${respName}/issues/${issueNumber}`;
+      let url = `https://api.github.com/repos/${ownerName}/${respName}/issues/${issueNumber}`;
       let data = await fetch(url);
       let result = await data.json();
       setIssue(result);
@@ -28,7 +28,7 @@ export default function IssueDetails({ match }) {
 
   const getComment = async (ownerName, respName, issueNumber) => {
     try {
-      let url = `https://cors-anywhere.herokuapp.com/https://api.github.com/repos/${ownerName}/${respName}/issues/${issueNumber}/comments`;
+      let url = `https://api.github.com/repos/${ownerName}/${respName}/issues/${issueNumber}/comments`;
       let data = await fetch(url);
       let result = await data.json();
       setComment(result);
@@ -39,6 +39,7 @@ export default function IssueDetails({ match }) {
   };
 
   function capFirst(string) {
+    
     let x = string;
     return x.charAt(0).toUpperCase() + x.slice(1);
   }
@@ -48,12 +49,7 @@ export default function IssueDetails({ match }) {
     return temp[1] + "-" + temp[2] + "-" + temp[0];
   }
 
-  if (
-    !issue ||
-    !comment ||
-    typeof issue == "undefined" ||
-    typeof comment == "undefined" ||
-    typeof state == "undefined"
+  if (issue == null ||comment == null ||state == null
   ) {
     return <div></div>;
   }

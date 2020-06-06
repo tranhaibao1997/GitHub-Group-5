@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import { StoreContext } from "./../ThemeContext";
 import NotFound from "./NotFound";
+import { Link } from "react-router-dom";
 
 function IssuesList({ match }) {
   let {
@@ -42,27 +43,7 @@ function IssuesList({ match }) {
       console.log(err);
     }
   }
-  async function postAnIssue() {
-    console.log("post issue")
-    try {
-      const issue = { title: "testing", body: "This is a test issue" };
-      const url = `https://api.github.com/repos/${match.params.owner}/${match.params.repository}/issues`;
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          Authorization: `token ${localStorage.token}`,
-        },
-        body: JSON.stringify(issue)
-        
-      });
-      const data = await response.json();
-      getIssueList(match.params.owner,match.params.repository)
-     
-    } catch (err) {
-      alert(err.message);
-    }
-  }
+
 
   return (
     <div>
@@ -139,8 +120,8 @@ function IssuesList({ match }) {
                   <Col md={4}></Col>
                   <Col md={2}>
                     <div className="add-new-issue">
-                      <Button onClick={() => postAnIssue()} variant="success">
-                        Add New Issue
+                      <Button variant="success">
+                        <Link style={{color:"white"}} to={`/repos/${match.params.owner}/${match.params.repository}/issues/new`}>Add New Issue</Link>
                       </Button>{" "}
                     </div>
                   </Col>

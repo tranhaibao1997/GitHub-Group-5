@@ -10,33 +10,49 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Authorize from './components/Authorize';
 import Axios from 'axios';
 import Profile from './components/Profile';
+import CreateNewIssue from './components/CreateNewIssue';
+import { StoreContext } from './ThemeContext'
 
 
 
 
 
 function App() {
-
+  React.useEffect(() => {
+    getUser()
+  }, [])
+  let { user } = React.useContext(StoreContext);
+  async function getUser() {
+    // const issue = { title: "testing", body: "This is a test issue" };
+    const url = `https://api.github.com/user`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `token ${localStorage.token}`,
+      },
+    });
+    const data = await response.json();
+    user[1](data);
+  }
 
   return (
     <>
-      <Authorize></Authorize>
+
       <Router>
+        <>
 
-        <NavBar></NavBar>
-        <Switch>
-
-          <Container>
-            <Route exact path={"/"} component={Profile}></Route>
-            <Route exact path={"/repos/:owner/:repository/issues"} component={IssuesList}></Route>
-            <Route exact path={"/repos/:owner/:repository/issues/:num"} component={IssueDetails}></Route>
-            <Route exact path={"/repositories/:repository"} component={RespList}></Route>
-          </Container>
-
-
-
-
-        </Switch>
+          <NavBar></NavBar>
+          <Switch>
+            <Container>
+              <Route exact path={"/"} component={Profile}></Route>
+              <Route exact path={"/repos/:owner/:repository/issues"} component={IssuesList}></Route>
+              <Route exact path={"/repos/:owner/:repository/issues/new"} component={CreateNewIssue}></Route>
+              <Route exact path={"/repos/:owner/:repository/issues/:num"} component={IssueDetails}></Route>
+              <Route exact path={"/repositories/:repository"} component={RespList}></Route>
+            </Container>
+          </Switch>
+        </>
       </Router>
     </>
   );

@@ -16,7 +16,7 @@ function RespList({ match }) {
     async function getRespList(resp) {
         try
         {
-            let url = `https://cors-anywhere.herokuapp.com/https://api.github.com/search/repositories?q=${resp}`
+            let url = `https://api.github.com/search/repositories?q=${resp}`
             let data = await fetch(url);
             let result = await data.json();
             console.log(result)
