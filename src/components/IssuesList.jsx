@@ -14,9 +14,13 @@ import { StoreContext } from "./../ThemeContext";
 import NotFound from "./NotFound";
 
 function IssuesList({ match }) {
-  let { respName, ownerName, issueList, setIssueList,token } = React.useContext(
-    StoreContext
-  );
+  let {
+    respName,
+    ownerName,
+    issueList,
+    setIssueList,
+    token,
+  } = React.useContext(StoreContext);
   useEffect(() => {
     if (match) {
       getIssueList(match.params.owner, match.params.repository);
@@ -26,8 +30,6 @@ function IssuesList({ match }) {
     // console.log(match.params.repository)
     console.log(match);
   }, []);
-
-  
 
   async function getIssueList(ownerName, respName) {
     try {
@@ -43,18 +45,21 @@ function IssuesList({ match }) {
     }
   }
   async function postAnIssue() {
-    // const issue = { title: "testing", body: "This is a test issue" };
-    // const url = `https://api.github.com/user/repos`;
-    // const response = await fetch(url, {
-    //   method: "GET",
-    //   headers: {
-    //     "Content-Type": "application/x-www-form-urlencoded",
-    //     "Authorization": `token ${localStorage.token}`,
-    //   },
-      
-    // });
-    // const data=await response.json()
-    // console.log(data)
+    try {
+      const issue = { title: "testing", body: "This is a test issue" };
+      const url = `https://api.github.com/user/repos`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `token ${localStorage.token}`,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (err) {
+      alert(err.message);
+    }
   }
 
   return (
