@@ -26,28 +26,27 @@ function IssuesList({ match }) {
       getIssueList(match.params.owner, match.params.repository);
     }
 
-    // console.log(match.params.owner)
-    // console.log(match.params.repository)
-    console.log(match);
   }, []);
 
   async function getIssueList(ownerName, respName) {
     try {
-      let url = `https://cors-anywhere.herokuapp.com/https://api.github.com/repos/${ownerName}/${respName}/issues?page=1&per_page=10`;
+      let url = `https://api.github.com/repos/${ownerName}/${respName}/issues?page=1&per_page=10`
       let data = await fetch(url);
       let result = await data.json();
       console.log(result, "this is from url");
 
       setIssueList(result);
+   
     } catch (err) {
       alert(err.message);
       console.log(err);
     }
   }
   async function postAnIssue() {
+    console.log("post issue")
     try {
       const issue = { title: "testing", body: "This is a test issue" };
-      const url = `https://api.github.com/user/repos`;
+      const url = `https://api.github.com/repos/${match.params.owner}/${match.params.repository}/issues`;
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -55,9 +54,11 @@ function IssuesList({ match }) {
           Authorization: `token ${localStorage.token}`,
         },
         body: JSON.stringify(issue)
+        
       });
       const data = await response.json();
-      console.log(data);
+      getIssueList(match.params.owner,match.params.repository)
+     
     } catch (err) {
       alert(err.message);
     }

@@ -1,4 +1,5 @@
 import React from "react";
+import { StoreContext } from "./../ThemeContext";
 import {
   Container,
   Row,
@@ -17,7 +18,9 @@ export default function Profile() {
     getUser();
   }, []);
   let [repos, setRepos] = React.useState(null);
-  let [user, setUser] = React.useState(null);
+  let {
+    user
+  } = React.useContext(StoreContext);
   async function getUserReps() {
     // const issue = { title: "testing", body: "This is a test issue" };
     const url = `https://api.github.com/user/repos?sort=created&per_page=10`;
@@ -42,11 +45,11 @@ export default function Profile() {
       },
     });
     const data = await response.json();
-    setUser(data);
+    user[1](data);
   }
-  console.log(user);
+  console.log(user[0]);
   console.log(repos)
-  if (user === null || repos === null) {
+  if (user[0] === null || repos === null) {
     return <div></div>;
   } else {
     return (
@@ -55,10 +58,10 @@ export default function Profile() {
           <Col md={4}>
             <div>
               <div className="img-container">
-                <img id="profile-avatar" src={user.avatar_url}></img>
+                <img id="profile-avatar" src={user[0].avatar_url}></img>
               </div>
 
-              <p id="profile-name">{user.login}</p>
+              <p id="profile-name">{user[0].login}</p>
               <button id="edit-profile">Edit profile</button>
             </div>
           </Col>
