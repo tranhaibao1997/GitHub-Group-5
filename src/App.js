@@ -19,23 +19,23 @@ import User from './components/User'
 
 
 function App() {
-  React.useEffect(() => {
-    getUser()
-  }, [])
-  let { authUser } = React.useContext(StoreContext);
-  async function getUser() {
-    // const issue = { title: "testing", body: "This is a test issue" };
-    const url = `https://api.github.com/user`;
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: `token ${localStorage.token}`,
-      },
-    });
-    const data = await response.json();
-    authUser[1](data);
-  }
+  // React.useEffect(() => {
+  //   getUser()
+  // }, [])
+  // let { authUser } = React.useContext(StoreContext);
+  // async function getUser() {
+  //   // const issue = { title: "testing", body: "This is a test issue" };
+  //   const url = `https://api.github.com/user`;
+  //   const response = await fetch(url, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/x-www-form-urlencoded",
+  //       Authorization: `token ${localStorage.token}`,
+  //     },
+  //   });
+  //   const data = await response.json();
+  //   authUser[1](data);
+  // }
 
   return (
     <>
