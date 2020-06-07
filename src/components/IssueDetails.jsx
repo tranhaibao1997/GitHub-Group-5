@@ -4,6 +4,10 @@ import ReactMarkdown from "react-markdown";
 import { navigate } from "@reach/router";
 import { StoreContext } from "./../ThemeContext";
 import Moment from "react-moment";
+import Comment from "./Comment";
+import {Link} from 'react-router-dom'
+
+
 
 export default function IssueDetails({ match }) {
   let [issue, setIssue] = useState(null);
@@ -12,6 +16,7 @@ export default function IssueDetails({ match }) {
   let [users, setUser] = useState(null);
   let [init, setInit] = useState(true);
   let [body, setBody] = React.useState("");
+  let [repo, setRepo] = React.useState(null);
 
   let { authUser } = React.useContext(StoreContext);
 
@@ -19,6 +24,8 @@ export default function IssueDetails({ match }) {
     if (match) {
       getIssue(match.params.owner, match.params.repository, match.params.num);
       getComment(match.params.owner, match.params.repository, match.params.num);
+      getRepo(match.params.owner, match.params.repository);
+     
     }
   }, []);
 
@@ -27,6 +34,26 @@ export default function IssueDetails({ match }) {
       getUsers();
     }
   }, []);
+
+  async function getRepo(ownerName, respName) {
+    try {
+      let url = `https://api.github.com/repos/${ownerName}/${respName}`;
+      const data = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `token ${localStorage.token}`,
+          Accept: "application/vnd.github.scarlet-witch-preview+json",
+        },
+      });
+      let result = await data.json();
+      console.log(result, "REPO INFo");
+
+      setRepo(result);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   const getUsers = () => {
     let temp = {};
@@ -55,7 +82,14 @@ export default function IssueDetails({ match }) {
   const getComment = async (ownerName, respName, issueNumber) => {
     try {
       let url = `https://cors-anywhere.herokuapp.com/https://api.github.com/repos/${ownerName}/${respName}/issues/${issueNumber}/comments`;
-      let data = await fetch(url);
+      const data = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `token ${localStorage.token}`,
+          Accept: "application/vnd.github.squirrel-girl-preview+json",
+        },
+      });
       let result = await data.json();
       setComment(result);
       console.log("Comment", result);
@@ -64,12 +98,20 @@ export default function IssueDetails({ match }) {
     }
   };
 
+ 
+
+  
+
   function getBody(e) {
     setBody(e.target.value);
   }
   async function postAnComment(e) {
     e.preventDefault();
-
+    if(body.split().length <30)
+    {
+      alert("Comment must be longer than 30 letters ")
+      return;
+    }
     try {
       const cmt = { body: `${body}` };
       const url = `https://api.github.com/repos/${match.params.owner}/${match.params.repository}/issues/${match.params.num}/comments`;
@@ -109,12 +151,107 @@ export default function IssueDetails({ match }) {
     setInit(false);
   }
 
+  async function closeIssue(e)
+  {
+    e.preventDefault();
+
+    try {
+      const edit = { "state": "closed" };
+      const url = `https://api.github.com/repos/${match.params.owner}/${match.params.repository}/issues/${match.params.num} `;
+      const response = await fetch(url, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `token ${localStorage.token}`,
+        
+        },
+        body: JSON.stringify(edit),
+      });
+
+      getIssue(match.params.owner, match.params.repository, match.params.num);
+      // navigate(
+      //   `/repos/${match.params.owner}/${match.params.repository}/issues/${match.params.num}`
+      // );
+      // window.location.reload();
+      console.log(response)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  async function openIssue(e)
+  {
+    e.preventDefault();
+
+    try {
+      const edit = { "state": "open" };
+      const url = `https://api.github.com/repos/${match.params.owner}/${match.params.repository}/issues/${match.params.num} `;
+      const response = await fetch(url, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `token ${localStorage.token}`,
+        
+        },
+        body: JSON.stringify(edit),
+      });
+
+      getIssue(match.params.owner, match.params.repository, match.params.num);
+      // navigate(
+      //   `/repos/${match.params.owner}/${match.params.repository}/issues/${match.params.num}`
+      // );
+      // window.location.reload();
+      console.log(response)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   console.log(issue, "this is issue detail");
   console.log(comment, "this is comment");
 
   return (
     <div>
       <Container style={{ padding: "10px" }}>
+      <div className="header">
+              <Row className="repo-head">
+                <Col className="repoName">
+                  <i class="far fa-bookmark"></i>
+                  <Link to={`/user/${match.params.owner}`}>{match.params.owner}</Link>
+              
+              <span> / </span>
+     
+              <Link to={`"/repos/${match.params.owner}/${match.params.repository}/issues"`}>{match.params.repository}</Link>
+                </Col>
+                <Col className="repoStat">
+                  <ul className="repoStatList">
+                    <li>
+                      <button>
+                        <i class="fas fa-cube"></i>Sub
+                      </button>
+                      <span>{repo.subscribers_count}</span>
+                    </li>
+                    <li>
+                      <button>
+                        <i class="far fa-eye"></i>Watch
+                      </button>
+                      <span>{repo.watchers_count}</span>
+                    </li>
+                    <li>
+                      <button>
+                        <i className="far fa-star"></i>Star
+                      </button>
+                      <span>{repo.stargazers_count}</span>
+                    </li>
+                    <li>
+                      <button>
+                        <i class="fas fa-code-branch"></i>Fork
+                      </button>
+                      <span>{repo.forks_count}</span>
+                    </li>
+                  </ul>
+                </Col>
+              </Row>
+            </div>
         <Row className="border-bottom pb-3">
           <Col md="8">
             <h4>
@@ -144,7 +281,15 @@ export default function IssueDetails({ match }) {
           </Col>
           <Col>
             <div style={{ float: "right" }}>
-              {authUser[0] ?(authUser[0].login===issue.user.login ?<button className="btn btn-dark mr-2">Edit</button> :"") :""}
+              {authUser[0] ? (
+                authUser[0].login === issue.user.login ? (
+                  <button className="btn btn-dark mr-2">Edit</button>
+                ) : (
+                  ""
+                )
+              ) : (
+                ""
+              )}
               <button className="btn btn-success">New Issue</button>
             </div>
           </Col>
@@ -163,50 +308,22 @@ export default function IssueDetails({ match }) {
               </Col>
               <Col
                 md={10}
-                style={{ border: "1px solid #d1d5da", padding: "5px" }}
+                style={{ border: "1px solid #d1d5da", padding: "5px", position:"relative" }}
               >
                 <div className="post-time">
-                  <p>
-                    <span style={{ fontWeight: 600 }}>{issue.user.login}</span>{" "}
-                    created this issue <Moment fromNow>{issue.created_at}</Moment>
+                  <p >
+                    <span style={{ fontWeight: 600 , marginBottom:"60px" }}>{issue.user.login}</span>{" "}
+                    created this issue{" "}
+                    <Moment fromNow>{issue.created_at}</Moment>
                   </p>
                 </div>
                 <ReactMarkdown source={issue.body}></ReactMarkdown>
+               
               </Col>
             </Row>
             {comment.map((item) => {
               return (
-                <div key={item.id}>
-                  <Row className="mt-3">
-                    <Col md={2}>
-                      <img
-                        src={item.user.avatar_url}
-                        style={{
-                          display: "block",
-                          margin: "0 auto",
-                          width: "80%",
-                        }}
-                      ></img>
-                      <p style={{ fontSize: "100%", textAlign: "center" }}>
-                        {item.user.login}
-                      </p>
-                    </Col>
-                    <Col
-                      md={10}
-                      style={{ border: "1px solid #d1d5da", padding: "5px" }}
-                    >
-                      <div className="post-time">
-                        <p>
-                          <span style={{ fontWeight: 600 }}>
-                            {item.user.login}
-                          </span>{" "}
-                          commented <Moment fromNow>{item.created_at}</Moment>
-                        </p>
-                      </div>
-                      <ReactMarkdown source={item.body}></ReactMarkdown>
-                    </Col>
-                  </Row>
-                </div>
+                <Comment item={item}></Comment>
               );
             })}
           </Col>
@@ -284,11 +401,19 @@ export default function IssueDetails({ match }) {
         <Row>
           <Col md={9}>
             <Col md={2}>
-              <div>
-
-              </div>
+              <div></div>
             </Col>
-              <Col md={10}>{issue.state === "closed" ? <h3 style={{color:"crimson"}}>This issues was closed <Moment fromNow>{issue.closed_at}</Moment> by {issue.closed_by.login}</h3> : ""}</Col>
+            <Col md={10}>
+              {issue.state === "closed" ? (
+                <h3 style={{ color: "crimson" }}>
+                  This issues was closed{" "}
+                  <Moment fromNow>{issue.closed_at}</Moment> by{" "}
+                  {issue.closed_by.login}
+                </h3>
+              ) : (
+                ""
+              )}
+            </Col>
           </Col>
         </Row>
         <Row>
@@ -315,13 +440,41 @@ export default function IssueDetails({ match }) {
                           placeholder="Leave a comment"
                         />
                       </Form.Group>
-                      <Button
-                        onClick={(e) => postAnComment(e)}
-                        variant="success"
+                      <div className="comment-box-btn-group">
+                        {authUser[0] ? (
+                          authUser[0].login === issue.user.login ?( issue.state !=="closed" ? <Button
+                          onClick={(e)=>closeIssue(e)}
+                          variant="danger"
+                          type="submit"
+                        >
+                          Close Issue
+                        </Button>
+                      : 
+                        <Button
+                        onClick={(e)=>openIssue(e)}
+                        variant="light"
                         type="submit"
                       >
-                        Submit
+                        Open Issue
                       </Button>
+                      )
+                      :"")
+                          
+                           
+                          
+                         : (
+                          ""
+                        )}
+
+                        <Button
+                          onClick={(e) => postAnComment(e)}
+                          variant="success"
+                          type="submit"
+                          style={{ marginLeft: "15px" }}
+                        >
+                          Submit
+                        </Button>
+                      </div>
                     </Form>
                   </div>
                 </Col>

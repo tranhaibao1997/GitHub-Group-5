@@ -35,13 +35,13 @@
   display: inline-block;
   margin-left: 10px;
   border-radius: 0.25em;
-  border: 1px solid rgba(27,31,35,.2);
+  border: 1px solid rgba(27, 31, 35, 0.2);
 }
 
 .repoStatList > li > button {
   border-style: none;
   border: 1px solid #eff3f6;
-  border-right: 1px solid rgba(27,31,35,.2);
+  border-right: 1px solid rgba(27, 31, 35, 0.2);
   padding: 3px 10px;
   font-size: 12px;
   background-color: #eff3f6;
@@ -50,12 +50,12 @@
 
 .repoStatList > li > button:hover {
   background-color: #e6ebf1;
-  border-color: rgba(27,31,35,.35);
+  border-color: rgba(27, 31, 35, 0.35);
 }
 
 .repoStatList > li > button > i {
   margin-right: 5px;
-} 
+}
 
 .repoStatList > li > span {
   padding: 3px 10px;
@@ -438,58 +438,78 @@
   padding: 20px;
   border-radius: 10px;
 }
-.create-iss-avatar img
-{
-    max-width: 100%;
+.create-iss-avatar img {
+  max-width: 100%;
 }
 
-.repo-header-user
-{
-    border-top: none !important;
+.repo-header-user {
+  border-top: none !important;
 }
-.user-info-wrapper
-{
-    border-bottom: 1px solid #e1e4e8 !important;
-    padding-top: 16px;
-    padding-bottom: 16px;
+.user-info-wrapper {
+  border-bottom: 1px solid #e1e4e8 !important;
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
-.user-info-wrapper .img-container
-{
-    text-align: center;
+.user-info-wrapper .img-container {
+  text-align: center;
 }
-.user-info-wrapper .img-container img
-{
-    max-width: 50%;
+.user-info-wrapper .img-container img {
+  max-width: 50%;
 }
-.user-info h1
-{
-    min-height: 32px;
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 20px;
-    font-weight: 400;
+.user-info h1 {
+  min-height: 32px;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 20px;
+  font-weight: 400;
 }
-.user-info p
-{
-    color: #6a737d!important;
-    font-size: 14px;
+.user-info p {
+  color: #6a737d !important;
+  font-size: 14px;
 }
-.post-cmt-form
-{
+.post-cmt-form {
   padding: 10px;
   border-top: 1px solid rgb(209, 213, 218);
   padding-top: 30px;
-margin-top: 30px;
+  margin-top: 30px;
 }
-.post-time
-{
+.post-time {
   background-color: #f1f8ff;
   border-bottom-color: #c0d3eb;
   padding: 4px;
-  font-weight: 400!important;
-    font-size: 14px!important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
 }
-.red
-{
+.red {
   color: crimson;
+}
+.comment-box-btn-group {
+  display: flex;
+  justify-content: flex-end;
+}
+.issue-reaction {
+  padding: 0;
+  font-size: 20px;
+  position: absolute;
+  bottom: -30px;
+  width: 100%;
+  left: 0px;
+  background-color: #f1f8ff;
+  border-bottom-color: #c0d3eb;
+}
+.issue-reaction i
+{
+  margin-right: 15px;
+  cursor: pointer;
+}
+.issue-reaction i:hover
+{
+  color: blue;
+
+}
+.Pagination
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
