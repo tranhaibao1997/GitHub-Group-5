@@ -107,7 +107,7 @@ export default function IssueDetails({ match }) {
   }
   async function postAnComment(e) {
     e.preventDefault();
-    if(body.split().length <30)
+    if(body.split("").length <30)
     {
       alert("Comment must be longer than 30 letters ")
       return;
