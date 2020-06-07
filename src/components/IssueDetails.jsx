@@ -26,7 +26,6 @@ export default function IssueDetails({ match }) {
       temp[result.user.id] = result.user.avatar_url;
       setUser(temp);
       console.log("Result", result);
-      console.log("User", temp)
     } catch (error) {   
       alert(error);
     }
@@ -43,6 +42,7 @@ export default function IssueDetails({ match }) {
           temp[item.user.id] = item.user.avatar_url;
           return;
       })
+      setUser(temp);
       console.log("Comment", result);
     } catch (error) {
       alert(error);
@@ -63,6 +63,7 @@ export default function IssueDetails({ match }) {
   if (!issue || !comment || !state) {
     return <div></div>;
   }
+
   return (
     <div>
       <Container style={{padding: "10px"}}>
@@ -140,8 +141,13 @@ export default function IssueDetails({ match }) {
                   <p style={{color: "grey"}}>You’re not receiving notifications from this thread.</p>
                 </Row>
                 <Row className="m-1 mt-3 border-bottom flex-column" style={{fontSize: "15px"}}>
-                  <button className="btn btn-info"><i className="far fa-bell"></i> Subscribe</button>
-                  <p style={{color: "grey"}}>You’re not receiving notifications from this thread.</p>
+                  {
+                    Object.keys(users).length === 1 ? (
+                      <p style={{color: "grey"}}>1 participant</p>
+                    ) : (
+                      <p style={{color: "grey"}}>{Object.keys(users).length} participants</p>
+                    )
+                  }
                 </Row>
               </Col>
           </Row>
