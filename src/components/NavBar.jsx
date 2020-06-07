@@ -29,7 +29,7 @@ function NavBar(props) {
 
       setIssueList(result);
     } catch (err) {
-      alert(err.message);
+    
       console.log(err);
     }
   }

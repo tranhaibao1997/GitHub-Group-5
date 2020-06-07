@@ -42,7 +42,7 @@ function App() {
 
       <Router>
         <>
-
+          {/* <Authorize></Authorize> */}
           <NavBar></NavBar>
           <Switch>
             <Container>

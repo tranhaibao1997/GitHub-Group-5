@@ -27,7 +27,7 @@ export default function IssueDetails({ match }) {
       setUser(temp);
       console.log("Result", result);
     } catch (error) {   
-      alert(error);
+     console.log(error)
     }
   };
 
@@ -45,7 +45,7 @@ export default function IssueDetails({ match }) {
       setUser(temp);
       console.log("Comment", result);
     } catch (error) {
-      alert(error);
+      console.log(error)
     }
   };
 
