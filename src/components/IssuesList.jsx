@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Issue from "./Issue";
+import Modal from "react-bootstrap/Modal";
 import {
   Container,
   DropdownButton,
@@ -12,58 +13,121 @@ import {
 } from "react-bootstrap";
 import { StoreContext } from "./../ThemeContext";
 import NotFound from "./NotFound";
+import { navigate } from "@reach/router";
 
 function IssuesList({ match }) {
-  let {
-    respName,
-    ownerName,
-    issueList,
-    setIssueList,
-    token,
-  } = React.useContext(StoreContext);
-  useEffect(() => {
-    if (match) {
-      getIssueList(match.params.owner, match.params.repository);
-    }
+  let { setIssueList, authUser, issueList } = React.useContext(StoreContext);
 
-    // console.log(match.params.owner)
-    // console.log(match.params.repository)
-    console.log(match);
-  }, []);
+  let [title, setTitle] = React.useState("");
+  let [body, setBody] = React.useState("");
 
-  async function getIssueList(ownerName, respName) {
-    try {
-      let url = `https://cors-anywhere.herokuapp.com/https://api.github.com/repos/${ownerName}/${respName}/issues?page=1&per_page=10`;
-      let data = await fetch(url);
-      let result = await data.json();
-      console.log(result, "this is from url");
-
-      setIssueList(result);
-    } catch (err) {
-      alert(err.message);
-      console.log(err);
-    }
+  function getTitle(e) {
+    setTitle(e.target.value);
   }
-  async function postAnIssue() {
+  function getBody(e) {
+    setBody(e.target.value);
+  }
+  async function postAnIssue(e) {
+    e.preventDefault();
     try {
-      const issue = { title: "testing", body: "This is a test issue" };
-      const url = `https://api.github.com/user/repos`;
+      const issue = { title: `${title}`, body: `${body}` };
+      const url = `https://api.github.com/repos/${match.params.owner}/${match.params.repository}/issues`;
       const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           Authorization: `token ${localStorage.token}`,
         },
+        body: JSON.stringify(issue),
       });
-      const data = await response.json();
-      console.log(data);
+      console.log(issue);
+      console.log(response);
+      setIssueList(match.params.owner, match.params.repository);
+      navigate(
+        `/repos/${match.params.owner}/${match.params.repository}/issues`
+      );
+      window.location.reload();
+    } catch (err) {}
+  }
+
+  useEffect(() => {
+    if (match) {
+      getIssueList(match.params.owner, match.params.repository);
+    }
+  }, []);
+
+  const [modalShow, setModalShow] = React.useState(false);
+
+  async function getIssueList(ownerName, respName) {
+    try {
+      let url = `https://api.github.com/repos/${ownerName}/${respName}/issues?page=1&per_page=10`;
+      let data = await fetch(url);
+      let result = await data.json();
+      console.log(result, "this is from url");
+
+      setIssueList(result);
     } catch (err) {
-      alert(err.message);
+      console.log(err);
     }
   }
 
   return (
     <div>
+      <Modal
+        show={modalShow}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header onClick={() => setModalShow(false)} closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Add New Issue
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Row>
+            <Col md={1}>
+              <div className="create-iss-avatar">
+                {authUser[0] === null ? (
+                  <></>
+                ) : (
+                  <img src={authUser[0].avatar_url}></img>
+                )}
+              </div>
+            </Col>
+            <Col md={11}>
+              <div className="create-iss-form">
+                <Form>
+                  <Form.Group controlId="exampleForm.ControlInput1">
+                    <Form.Control
+                      onChange={(e) => getTitle(e)}
+                      type="text"
+                      placeholder="Title"
+                    />
+                  </Form.Group>
+
+                  <Form.Group controlId="exampleForm.ControlTextarea1">
+                    <Form.Control
+                      onChange={(e) => getBody(e)}
+                      as="textarea"
+                      rows="10"
+                      placeholder="Leave a comment"
+                    />
+                  </Form.Group>
+                  <Button
+                    onClick={(e) => postAnIssue(e)}
+                    variant="success"
+                    type="submit"
+                  >
+                    Submit
+                  </Button>
+                </Form>
+              </div>
+            </Col>
+          </Row>
+        </Modal.Body>
+      </Modal>
+
       {issueList && match ? (
         issueList.message ? (
           <>
@@ -137,7 +201,10 @@ function IssuesList({ match }) {
                   <Col md={4}></Col>
                   <Col md={2}>
                     <div className="add-new-issue">
-                      <Button onClick={() => postAnIssue()} variant="success">
+                      <Button
+                        variant="success"
+                        onClick={() => setModalShow(true)}
+                      >
                         Add New Issue
                       </Button>{" "}
                     </div>
