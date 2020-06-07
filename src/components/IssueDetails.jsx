@@ -6,7 +6,8 @@ export default function IssueDetails({ match }) {
   let [issue, setIssue] = useState(null);
   let [comment, setComment] = useState(null);
   let [state, setState] = useState(null);
-  let [users, setUser] = useState({});
+  let [users, setUser] = useState(null);
+  let [init, setInit] = useState(true);
 
   useEffect(() => {
     if (match) {
@@ -15,6 +16,23 @@ export default function IssueDetails({ match }) {
     }
   }, []);
 
+  useEffect(() => {
+    if (issue && comment) {
+      getUsers();
+    }
+  }, []);
+
+  const getUsers = () => {
+    let temp = {};
+    temp[issue.user.id] = issue.user.avatar_url;
+    comment.map((item) => {
+      temp[item.user.id] = item.user.avatar_url;
+      return;
+    })
+    setUser(temp);
+    console.log("User:", temp)
+  }
+
   const getIssue = async (ownerName, respName, issueNumber) => {
     try {
       let url = `https://cors-anywhere.herokuapp.com/https://api.github.com/repos/${ownerName}/${respName}/issues/${issueNumber}`;
@@ -22,9 +40,6 @@ export default function IssueDetails({ match }) {
       let result = await data.json();
       setIssue(result);
       setState(result.state);
-      let temp = users;
-      temp[result.user.id] = result.user.avatar_url;
-      setUser(temp);
       console.log("Result", result);
     } catch (error) {   
      console.log(error)
@@ -37,12 +52,6 @@ export default function IssueDetails({ match }) {
       let data = await fetch(url);
       let result = await data.json();
       setComment(result);
-      let temp = users;
-      result.map((item) => {
-          temp[item.user.id] = item.user.avatar_url;
-          return;
-      })
-      setUser(temp);
       console.log("Comment", result);
     } catch (error) {
       console.log(error)
@@ -64,6 +73,11 @@ export default function IssueDetails({ match }) {
     return <div></div>;
   }
 
+  if (issue && comment && init) {
+    getUsers();
+    setInit(false);
+  }
+  
   return (
     <div>
       <Container style={{padding: "10px"}}>
@@ -142,11 +156,8 @@ export default function IssueDetails({ match }) {
                 </Row>
                 <Row className="m-1 mt-3 border-bottom flex-column" style={{fontSize: "15px"}}>
                   {
-                    Object.keys(users).length === 1 ? (
-                      <p style={{color: "grey"}}>1 participant</p>
-                    ) : (
-                      <p style={{color: "grey"}}>{Object.keys(users).length} participants</p>
-                    )
+                    (users) ? 
+                      (Object.keys(users).length == 1 ? (<p style={{color: "grey"}}>1 participant</p>) : (<p style={{color: "grey"}}>{Object.keys(users).length} participants</p>)) : ""
                   }
                 </Row>
               </Col>
