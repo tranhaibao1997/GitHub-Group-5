@@ -136,8 +136,12 @@ export default function IssueDetails({ match }) {
                   <p style={{fontWeight: "bold", float: "left"}}>Notifications</p>
                   <p style={{float: "right"}}>Customize</p>
                   </div>
-                    <button className="btn btn-info"><i className="far fa-bell"></i> Subscribe</button>
-                    <p style={{color: "grey"}}>You’re not receiving notifications from this thread.</p>
+                  <button className="btn btn-info"><i className="far fa-bell"></i> Subscribe</button>
+                  <p style={{color: "grey"}}>You’re not receiving notifications from this thread.</p>
+                </Row>
+                <Row className="m-1 mt-3 border-bottom flex-column" style={{fontSize: "15px"}}>
+                  <button className="btn btn-info"><i className="far fa-bell"></i> Subscribe</button>
+                  <p style={{color: "grey"}}>You’re not receiving notifications from this thread.</p>
                 </Row>
               </Col>
           </Row>
