@@ -34,12 +34,14 @@ function Resp(props) {
                     {/* {issue.labels[0].name ? <button className="statusBtn" style={{backgroundColor:`${bgColor}`}}>{issue.labels[0].name}</button> : <span></span>} */}
                 </Row>
                 <Row>
-                    <ul className="resp-footer">
-                        <li className="starIcon"><i className="far fa-star"></i>{Math.floor(resp.stargazers_count)}</li>
-                        <li className="resp-lang"><i class="fas fa-circle"></i><span className="respLang">{resp.language}</span></li>
-                        <li>{resp.license ? <span>{resp.license.name}</span> : <span>No</span>}</li>
-                        <li>Updated <Moment fromNow>{resp.pushed_at}</Moment></li>
-                    </ul>
+                    <div>
+                        <ul className="resp-footer">
+                            <li className="starIcon"><i className="far fa-star"></i>{Math.floor(resp.stargazers_count)}</li>
+                            <li className="resp-lang"><i class="fas fa-circle"></i><span className="respLang">{resp.language}</span></li>
+                            <li>{resp.license ? <span>{resp.license.name}</span> : <span>No</span>}</li>
+                            <li>Updated <Moment fromNow>{resp.pushed_at}</Moment></li>
+                        </ul>
+                    </div>
                     {/* {issue.labels[0].name ? <button className="statusBtn" style={{backgroundColor:`${bgColor}`}}>{issue.labels[0].name}</button> : <span></span>} */}
                 </Row>
             </Col>

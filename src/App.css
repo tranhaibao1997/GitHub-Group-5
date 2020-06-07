@@ -1,6 +1,7 @@
 .issueContainer {
     height: auto;
     border: 1px solid #d1d5da;
+    margin: 0;
 }
 
 .issueContainer>h3 {
@@ -132,8 +133,6 @@
     margin-block-start: 0px;
     margin-block-end: 0px;
 }
-
-
 
 .respContainer {
   height: auto;

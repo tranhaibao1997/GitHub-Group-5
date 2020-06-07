@@ -18,7 +18,7 @@ import Profile from './components/Profile';
 function App() {
   return (
     <>
-    <Authorize></Authorize>
+    {/* <Authorize></Authorize> */}
     <Router>
       
       <NavBar></NavBar>
