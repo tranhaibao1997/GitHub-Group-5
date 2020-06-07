@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Container } from 'react-bootstrap'
 import Moment from 'react-moment'
 import { Link } from 'react-router-dom';
 
@@ -36,14 +36,14 @@ function Resp(props) {
                     {/* {issue.labels[0].name ? <button className="statusBtn" style={{backgroundColor:`${bgColor}`}}>{issue.labels[0].name}</button> : <span></span>} */}
                 </Row>
                 <Row>
-                    <div>
+                    <Container>
                         <ul className="resp-footer">
                             <li className="starIcon"><i className="far fa-star"></i>{Math.floor(resp.stargazers_count)}</li>
                             <li className="resp-lang"><i class="fas fa-circle"></i><span className="respLang">{resp.language}</span></li>
                             <li>{resp.license ? <span>{resp.license.name}</span> : <span>No</span>}</li>
                             <li>Updated <Moment fromNow>{resp.pushed_at}</Moment></li>
                         </ul>
-                    </div>
+                    </Container>
                     {/* {issue.labels[0].name ? <button className="statusBtn" style={{backgroundColor:`${bgColor}`}}>{issue.labels[0].name}</button> : <span></span>} */}
                 </Row>
             </Col>
