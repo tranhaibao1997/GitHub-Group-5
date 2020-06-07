@@ -187,19 +187,30 @@ function IssuesList({ match }) {
         ) : (
           <div>
             <div className="header">
-              <div className="header-wrapper">
-                <div className="repo-head">
-                  <h1>
-                    <span>
-                      <i className="fas fa-book"></i>
-                    </span>
+                <Row className="repo-head">
+                  <Col className="repoName">
+                    <i class="far fa-bookmark"></i>
                     <a href="#">{match.params.owner}</a>
-                    <span>/</span>
-                    <a href="#">{match.params.repository}</a>
-                  </h1>
-                </div>
-                <ul></ul>
-              </div>
+                    <span> / </span>
+                    <a href="#" className="repoNameRep">{match.params.repository}</a>
+                  </Col>
+                  <Col className="repoStat">
+                    <ul className="repoStatList">
+                      <li>
+                        <button><i class="fas fa-cube"></i>Used by</button><span>3.8m</span>
+                      </li>
+                      <li>
+                        <button><i class="far fa-eye"></i>Watch</button><span>3.8m</span>
+                      </li>
+                      <li>
+                        <button><i className="far fa-star"></i>Star</button><span>3.8m</span>
+                      </li>
+                      <li>
+                        <button><i class="fas fa-code-branch"></i>Fork</button><span>3.8m</span>
+                      </li>
+                    </ul>
+                  </Col>
+                </Row>
             </div>
             <div className="banner">
               <div className="banner-content">
@@ -219,37 +230,35 @@ function IssuesList({ match }) {
               </div>
             </div>
             <div className="issues-list">
-              <div className="issues-list-control">
-                <Row>
-                  <Col md={1}>
-                    <DropdownButton
-                      id="dropdown-basic-button"
-                      title="Filter"
-                      onSelect={filterIssues}
-                    >
-                      <Dropdown.Item  eventKey="open">
-                        Open issues and pull requests
-                      </Dropdown.Item>
-                      <Dropdown.Item eventKey="closed">
-                        Close issues and pull requests
-                      </Dropdown.Item>
-                      {/* <Dropdown.Item eventKey="created">
-                        Your issues
-                      </Dropdown.Item> */}
-                     
-                    </DropdownButton>
+              <Row className="issues-list-control">
+                <Col>
+                    <div className="filterMenu">
+                      <DropdownButton
+                        className="filterBtn"
+                        id="dropdown-basic-button"
+                        title="Filter"
+                        onSelect={filterIssues}
+                      >
+                        <Dropdown.Item  eventKey="open">
+                          Open issues and pull requests
+                        </Dropdown.Item>
+                        <Dropdown.Item eventKey="closed">
+                          Close issues and pull requests
+                        </Dropdown.Item>
+                        {/* <Dropdown.Item eventKey="created">
+                          Your issues
+                        </Dropdown.Item> */}
+                      </DropdownButton>
+                      <Form inline>
+                        <FormControl
+                          type="text"
+                          placeholder="Search"
+                          className="mr-sm-2"
+                        />
+                      </Form>
+                    </div>
                   </Col>
-                  <Col md={5}>
-                    <Form inline>
-                      <FormControl
-                        type="text"
-                        placeholder="Search"
-                        className="mr-sm-2"
-                      />
-                    </Form>
-                  </Col>
-                  <Col md={4}></Col>
-                  <Col md={2}>
+                  <Col>
                     <div className="add-new-issue">
                       <Button
                         variant="success"
@@ -259,12 +268,6 @@ function IssuesList({ match }) {
                       </Button>{" "}
                     </div>
                   </Col>
-                </Row>
-              </div>
-              <Row>
-                <Col md={8}></Col>
-                <Col md={3}></Col>
-                <Col md={1}></Col>
               </Row>
               {issueList.map((item) => {
                 return (

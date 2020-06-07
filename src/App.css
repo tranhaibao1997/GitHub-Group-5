@@ -8,6 +8,65 @@
   }
 }
 
+.repo-head {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.repoName {
+  font-size: 18px;
+}
+
+.repoName > i {
+  margin-right: 5px;
+  color: #959da5;
+}
+
+.repoNameRep {
+  font-weight: 600;
+}
+
+.repoStat {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.repoStatList > li {
+  display: inline-block;
+  margin-left: 10px;
+  border-radius: 0.25em;
+  border: 1px solid rgba(27,31,35,.2);
+}
+
+.repoStatList > li > button {
+  border-style: none;
+  border: 1px solid #eff3f6;
+  border-right: 1px solid rgba(27,31,35,.2);
+  padding: 3px 10px;
+  font-size: 12px;
+  background-color: #eff3f6;
+  color: #24292e;
+}
+
+.repoStatList > li > button:hover {
+  background-color: #e6ebf1;
+  border-color: rgba(27,31,35,.35);
+}
+
+.repoStatList > li > button > i {
+  margin-right: 5px;
+} 
+
+.repoStatList > li > span {
+  padding: 3px 10px;
+  font-size: 12px;
+}
+
+.repoStatList > li > span:hover {
+  cursor: pointer;
+  color: #0366d6;
+}
+
 .issueContainer {
   height: auto;
   border: 1px solid #d1d5da;
@@ -103,10 +162,6 @@
   color: rgba(255, 255, 255, 0.5) !important;
 }
 
-.repo-head h1 {
-  font-size: 18px;
-}
-
 .banner > .banner-content > p {
   margin: 0;
   margin-block-start: 0px;
@@ -115,6 +170,15 @@
 
 .issues-list-control {
   margin-bottom: 30px;
+}
+
+.filterMenu {
+  display: inline-flex;
+  align-items: center;
+}
+
+.filterBtn {
+  margin-right: 10px;
 }
 
 .form-inline .form-control {
@@ -161,12 +225,15 @@
 .resp-desc {
   font-size: 14px;
   color: #24292e;
+  margin-top: 5px;
+  margin-left: 4px;
 }
 
 .resp-footer {
   padding-left: 0;
   font-size: 12px;
   color: #586069;
+  margin-left: 4px;
 }
 
 .resp-footer > li {
