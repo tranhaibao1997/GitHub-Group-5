@@ -13,7 +13,7 @@ function Resp(props) {
 
     return (
         <Row className="respContainer">
-            <Col md={9}>
+            <Col md={10}>
                 <Row className="respIcon">
                     <div>
                         <i class="fas fa-book"></i>
@@ -47,7 +47,7 @@ function Resp(props) {
                     {/* {issue.labels[0].name ? <button className="statusBtn" style={{backgroundColor:`${bgColor}`}}>{issue.labels[0].name}</button> : <span></span>} */}
                 </Row>
             </Col>
-            <Col md={3} className="resp-owner">
+            <Col md={2} className="resp-owner">
                 <div className="respImg"><img src={resp.owner.avatar_url}></img></div>
                 <div className="respName"><p>@{resp.owner.login}</p></div>
             </Col>

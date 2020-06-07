@@ -264,7 +264,7 @@ function IssuesList({ match }) {
                         variant="success"
                         onClick={() => setModalShow(true)}
                       >
-                        Add New Issue
+                        New issue
                       </Button>{" "}
                     </div>
                   </Col>
