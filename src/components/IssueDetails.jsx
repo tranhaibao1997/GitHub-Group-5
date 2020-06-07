@@ -6,6 +6,7 @@ import { StoreContext } from "./../ThemeContext";
 import Moment from "react-moment";
 import Comment from "./Comment";
 import {Link} from 'react-router-dom'
+import Loading from "./Loading";
 
 
 
@@ -209,49 +210,63 @@ export default function IssueDetails({ match }) {
   console.log(issue, "this is issue detail");
   console.log(comment, "this is comment");
 
+
+if(issue===null || comment===null)
+{
+  return(
+    <Loading></Loading>
+  )
+}
+else
+{
   return (
+
     <div>
       <Container style={{ padding: "10px" }}>
-      <div className="header">
-              <Row className="repo-head">
-                <Col className="repoName">
-                  <i class="far fa-bookmark"></i>
-                  <Link to={`/user/${match.params.owner}`}>{match.params.owner}</Link>
-              
-              <span> / </span>
-     
-              <Link to={`"/repos/${match.params.owner}/${match.params.repository}/issues"`}>{match.params.repository}</Link>
-                </Col>
-                <Col className="repoStat">
-                  <ul className="repoStatList">
-                    <li>
-                      <button>
-                        <i class="fas fa-cube"></i>Sub
-                      </button>
-                      <span>{repo.subscribers_count}</span>
-                    </li>
-                    <li>
-                      <button>
-                        <i class="far fa-eye"></i>Watch
-                      </button>
-                      <span>{repo.watchers_count}</span>
-                    </li>
-                    <li>
-                      <button>
-                        <i className="far fa-star"></i>Star
-                      </button>
-                      <span>{repo.stargazers_count}</span>
-                    </li>
-                    <li>
-                      <button>
-                        <i class="fas fa-code-branch"></i>Fork
-                      </button>
-                      <span>{repo.forks_count}</span>
-                    </li>
-                  </ul>
-                </Col>
-              </Row>
-            </div>
+        {
+          repo ?<div className="header">
+          <Row className="repo-head">
+            <Col className="repoName">
+              <i class="far fa-bookmark"></i>
+              <Link to={`/user/${match.params.owner}`}>{match.params.owner}</Link>
+          
+          <span> / </span>
+ 
+          <Link to={`/repos/${match.params.owner}/${match.params.repository}/issues`}>{match.params.repository}</Link>
+            </Col>
+            <Col className="repoStat">
+              <ul className="repoStatList">
+                <li>
+                  <button>
+                    <i class="fas fa-cube"></i>Sub
+                  </button>
+                  <span>{repo.subscribers_count}</span>
+                </li>
+                <li>
+                  <button>
+                    <i class="far fa-eye"></i>Watch
+                  </button>
+                  <span>{repo.watchers_count}</span>
+                </li>
+                <li>
+                  <button>
+                    <i className="far fa-star"></i>Star
+                  </button>
+                  <span>{repo.stargazers_count}</span>
+                </li>
+                <li>
+                  <button>
+                    <i class="fas fa-code-branch"></i>Fork
+                  </button>
+                  <span>{repo.forks_count}</span>
+                </li>
+              </ul>
+            </Col>
+          </Row>
+        </div>
+        :""
+        }
+      
         <Row className="border-bottom pb-3">
           <Col md="8">
             <h4>
@@ -485,4 +500,7 @@ export default function IssueDetails({ match }) {
       </Container>
     </div>
   );
+}
+
+  
 }

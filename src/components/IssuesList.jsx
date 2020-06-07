@@ -18,6 +18,7 @@ import { StoreContext } from "./../ThemeContext";
 import NotFound from "./NotFound";
 import { navigate } from "@reach/router";
 import { Link } from "react-router-dom";
+import Loading from "./Loading";
 
 function IssuesList({ match }) {
   let { setIssueList, authUser, issueList } = React.useContext(StoreContext);
@@ -224,7 +225,8 @@ function IssuesList({ match }) {
           </>
         ) : (
           <div>
-            <div className="header">
+            {
+              repo ? <div className="header">
               <Row className="repo-head">
                 <Col className="repoName">
                   <i class="far fa-bookmark"></i>
@@ -232,7 +234,7 @@ function IssuesList({ match }) {
               
                   <span> / </span>
          
-                  <Link to={`"/repos/${match.params.owner}/${match.params.repository}/issues"`}>{match.params.repository}</Link>
+                  <Link to={`/repos/${match.params.owner}/${match.params.repository}/issues`}>{match.params.repository}</Link>
                     
                 
                 </Col>
@@ -266,6 +268,9 @@ function IssuesList({ match }) {
                 </Col>
               </Row>
             </div>
+            :<Loading></Loading>
+            }
+           
             <div className="banner">
               <div className="banner-content">
                 <h4>

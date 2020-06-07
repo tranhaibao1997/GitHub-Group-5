@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { StoreContext } from "./../ThemeContext";
 import Resp from './Resp';
+import Loading from './Loading';
 
 function RespList({ match }) {
     useEffect(() => {
@@ -37,7 +38,7 @@ function RespList({ match }) {
         <>
 
             {
-                respList[0] === null ? <div>Loading...</div> : <>
+                respList[0] === null ? <Loading></Loading>: <>
                     {
                         respList[0].map(elm => {
                             return (
