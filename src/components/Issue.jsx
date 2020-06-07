@@ -11,7 +11,7 @@ function Issue(props) {
     return (
         <Row className="issueContainer">
             <Col md={1} className="issueIcon">
-                <i class="fas fa-exclamation-circle"></i>
+                {issue.state=="closed" ?<i class="fas fa-exclamation-circle red"></i> :<i class="fas fa-exclamation-circle"></i>}
             </Col>
             <Col md={9} className="issueInfo">
                 <Row>

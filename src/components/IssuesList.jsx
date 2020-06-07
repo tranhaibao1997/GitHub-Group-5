@@ -20,6 +20,7 @@ function IssuesList({ match }) {
 
   let [title, setTitle] = React.useState("");
   let [body, setBody] = React.useState("");
+  let [filter,setFilter]=React.useState("")
 
   function getTitle(e) {
     setTitle(e.target.value);
@@ -42,7 +43,7 @@ function IssuesList({ match }) {
       });
       console.log(issue);
       console.log(response);
-      setIssueList(match.params.owner, match.params.repository);
+      getIssueList(match.params.owner, match.params.repository);
       navigate(
         `/repos/${match.params.owner}/${match.params.repository}/issues`
       );
@@ -60,7 +61,7 @@ function IssuesList({ match }) {
 
   async function getIssueList(ownerName, respName) {
     try {
-      let url = `https://api.github.com/repos/${ownerName}/${respName}/issues?page=1&per_page=10`;
+      let url = `https://api.github.com/repos/${ownerName}/${respName}/issues?page=1&per_page=10&state=all`;
       let data = await fetch(url);
       let result = await data.json();
       console.log(result, "this is from url");
@@ -68,6 +69,56 @@ function IssuesList({ match }) {
       setIssueList(result);
     } catch (err) {
       console.log(err);
+    }
+  }
+
+  async function filterIssues(e) {
+    console.log(e)
+    if(e=="open")
+    {
+      try {
+        let url = `https://api.github.com/repos/${match.params.owner}/${match.params.repository}/issues?page=1&per_page=10&state=open`;
+        let data = await fetch(url);
+        let result = await data.json();
+        console.log(url, "this is from url");
+  
+        setIssueList(result);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    if(e=="closed")
+    {
+      try {
+        let url = `https://api.github.com/repos/${match.params.owner}/${match.params.repository}/issues?&state=closed&page=1&per_page=10`;
+        let data = await fetch(url);
+        let result = await data.json();
+        console.log(url, "this is from url");
+        setIssueList(result);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    if(e==="created")
+    {
+      try {
+        let url = `https://api.github.com/repos/${match.params.owner}/${match.params.repository}/issues?page=1&per_page=10&filter=created`;
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: `token ${localStorage.token}`,
+          },
+        });
+        console.log(url)
+        let result = await response.json();
+        console.log(result)
+        
+  
+        setIssueList(result);
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 
@@ -183,6 +234,7 @@ function IssuesList({ match }) {
                 <Col>
                     <div className="filterMenu">
                       <DropdownButton
+                        className="filterBtn"
                         id="dropdown-basic-button"
                         title="Filter"
                         onSelect={filterIssues}
